@@ -1,0 +1,13 @@
+gcc -march=native -mtune=native -O3 -mavx2 -fomit-frame-pointer -fwrapv -fPIC -fPIE -Wno-deprecated-declarations -Wno-unused-result    -c -o Fql.o Fql.c
+gcc -march=native -mtune=native -O3 -mavx2 -fomit-frame-pointer -fwrapv -fPIC -fPIE -Wno-deprecated-declarations -Wno-unused-result    -c -o PQCgenKAT_sign.o PQCgenKAT_sign.c
+gcc -march=native -mtune=native -O3 -mavx2 -fomit-frame-pointer -fwrapv -fPIC -fPIE -Wno-deprecated-declarations -Wno-unused-result    -c -o qruov.o qruov.c
+gcc -march=native -mtune=native -O3 -mavx2 -fomit-frame-pointer -fwrapv -fPIC -fPIE -Wno-deprecated-declarations -Wno-unused-result    -c -o rng.o rng.c
+gcc -march=native -mtune=native -O3 -mavx2 -fomit-frame-pointer -fwrapv -fPIC -fPIE -Wno-deprecated-declarations -Wno-unused-result    -c -o sign.o sign.c
+gcc -march=native -mtune=native -O3 -mavx2 -fomit-frame-pointer -fwrapv -fPIC -fPIE -Wno-deprecated-declarations -Wno-unused-result    -c -o matrix.o matrix.c
+gcc -march=native -mtune=native -O3 -mavx2 -fomit-frame-pointer -fwrapv -fPIC -fPIE -Wno-deprecated-declarations -Wno-unused-result    -c -o mgf.o mgf.c
+gcc Fql.o PQCgenKAT_sign.o qruov.o rng.o sign.o matrix.o mgf.o -march=native -mtune=native -O3 -mavx2 -fomit-frame-pointer -fwrapv -fPIC -fPIE -Wno-deprecated-declarations -Wno-unused-result  -lcrypto -Wl,-Bstatic -lcrypto -Wl,-Bdynamic -lm -o PQCgenKAT_sign
+bash -c "time ./PQCgenKAT_sign"
+
+real	0m1,746s
+user	0m1,706s
+sys	0m0,031s

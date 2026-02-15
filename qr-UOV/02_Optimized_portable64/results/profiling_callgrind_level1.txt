@@ -1,0 +1,40 @@
+Profile data file 'callgrind_level1.out' (creator: callgrind-3.18.1)
+I1 cache: 
+D1 cache: 
+LL cache: 
+Timerange: Basic block 0 - 8090802827
+Trigger: Program termination
+Profiled target:  ./PQCgenKAT_sign (PID 7606, part 1)
+Events recorded:  Ir
+Events shown:     Ir
+Event sort order: Ir
+Thresholds:       99
+Include dirs:     
+User annotated:   
+Auto-annotation:  on
+
+Ir                      
+24,507,226,436 (100.0%)  PROGRAM TOTALS
+
+Ir                      file:function
+7,752,373,551 (31.63%)  ???:0x0000000000020910 [/usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0]
+7,741,992,435 (31.59%)  ???:0x00000000000206b0 [/usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0]
+2,442,452,400 ( 9.97%)  ???:MATRIX_MUL_MxV_VxV._omp_fn.0 [/home/manar/Downloads/new/QR_UOV - Round2/Optimized_Implementation/portable64/PQCgenKAT_sign]
+1,238,322,699 ( 5.05%)  ???:Expand_pk [/home/manar/Downloads/new/QR_UOV - Round2/Optimized_Implementation/portable64/PQCgenKAT_sign]
+1,015,202,592 ( 4.14%)  ./stdio-common/./stdio-common/vfprintf-internal.c:__vfprintf_internal [/usr/lib/x86_64-linux-gnu/libc.so.6]
+  930,560,400 ( 3.80%)  ???:MATRIX_MUL_ADD_MxV_VxM._omp_fn.0 [/home/manar/Downloads/new/QR_UOV - Round2/Optimized_Implementation/portable64/PQCgenKAT_sign]
+  846,590,400 ( 3.45%)  ???:MATRIX_MUL_MxV_VxM._omp_fn.0 [/home/manar/Downloads/new/QR_UOV - Round2/Optimized_Implementation/portable64/PQCgenKAT_sign]
+  341,181,724 ( 1.39%)  ???:ReadHex [/home/manar/Downloads/new/QR_UOV - Round2/Optimized_Implementation/portable64/PQCgenKAT_sign]
+  263,162,181 ( 1.07%)  ./libio/./libio/fileops.c:_IO_file_xsputn@@GLIBC_2.2.5 [/usr/lib/x86_64-linux-gnu/libc.so.6]
+  202,313,978 ( 0.83%)  ???:QRUOV_Sign [/home/manar/Downloads/new/QR_UOV - Round2/Optimized_Implementation/portable64/PQCgenKAT_sign]
+  185,722,200 ( 0.76%)  ???:VERIFY_i [/home/manar/Downloads/new/QR_UOV - Round2/Optimized_Implementation/portable64/PQCgenKAT_sign]
+  163,076,000 ( 0.67%)  ???:0x00000000002a8840 [/usr/lib/x86_64-linux-gnu/libcrypto.so.3]
+  136,096,200 ( 0.56%)  ???:VECTOR_V_MUL_MATRIX_VxV._omp_fn.0 [/home/manar/Downloads/new/QR_UOV - Round2/Optimized_Implementation/portable64/PQCgenKAT_sign]
+  120,270,802 ( 0.49%)  ./string/../sysdeps/x86_64/multiarch/memset-vec-unaligned-erms.S:__memset_avx2_unaligned_erms [/usr/lib/x86_64-linux-gnu/libc.so.6]
+  112,436,414 ( 0.46%)  ./string/../sysdeps/x86_64/multiarch/strchr-avx2.S:__strchrnul_avx2 [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   94,845,600 ( 0.39%)  ???:VECTOR_V_MUL_MATRIX_VxM._omp_fn.0 [/home/manar/Downloads/new/QR_UOV - Round2/Optimized_Implementation/portable64/PQCgenKAT_sign]
+   90,052,997 ( 0.37%)  ./stdio-common/./stdio-common/_itoa.c:_itoa_word [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   85,806,679 ( 0.35%)  ./debug/./debug/fprintf_chk.c:__fprintf_chk [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   66,528,000 ( 0.27%)  ???:MATRIX_TRANSPOSE_VxM._omp_fn.0 [/home/manar/Downloads/new/QR_UOV - Round2/Optimized_Implementation/portable64/PQCgenKAT_sign]
+   62,180,525 ( 0.25%)  ./string/../sysdeps/x86_64/multiarch/memmove-vec-unaligned-erms.S:__mempcpy_avx_unaligned_erms [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   58,557,600 ( 0.24%)  ???:MATRIX_SUB_MxV._omp_fn.0 [/home/manar/Downloads/new/QR_UOV - Round2/Optimized_Implementation/portable64/PQCgenKAT_sign]

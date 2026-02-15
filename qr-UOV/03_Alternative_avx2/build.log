@@ -1,0 +1,35 @@
+gcc @qruov_config.txt -DQRUOV_PLATFORM=avx2 -DQRUOV_CONFIG_H_GEN -march=native -mtune=native -O3 -fomit-frame-pointer -fwrapv -fPIC -fPIE -fopenmp -Wno-deprecated-declarations -Wno-unused-result  -lcrypto -Wl,-Bstatic -lcrypto -Wl,-Bdynamic -lm qruov_config_h_gen.c
+qruov_config_h_gen.c: In function ‘main’:
+qruov_config_h_gen.c:32:5: error: ‘QRUOV_security_strength_category’ undeclared (first use in this function)
+   32 |     QRUOV_security_strength_category,
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+qruov_config_h_gen.c:32:5: note: each undeclared identifier is reported only once for each function it appears in
+qruov_config_h_gen.c:33:5: error: ‘QRUOV_q’ undeclared (first use in this function); did you mean ‘QRUOV_STR’?
+   33 |     QRUOV_q,
+      |     ^~~~~~~
+      |     QRUOV_STR
+qruov_config_h_gen.c:34:5: error: ‘QRUOV_v’ undeclared (first use in this function); did you mean ‘QRUOV_STR’?
+   34 |     QRUOV_v,
+      |     ^~~~~~~
+      |     QRUOV_STR
+qruov_config_h_gen.c:35:5: error: ‘QRUOV_m’ undeclared (first use in this function); did you mean ‘QRUOV_STR’?
+   35 |     QRUOV_m,
+      |     ^~~~~~~
+      |     QRUOV_STR
+qruov_config_h_gen.c:36:5: error: ‘QRUOV_L’ undeclared (first use in this function); did you mean ‘QRUOV_STR’?
+   36 |     QRUOV_L,
+      |     ^~~~~~~
+      |     QRUOV_STR
+qruov_config_h_gen.c:37:5: error: ‘QRUOV_fc’ undeclared (first use in this function); did you mean ‘QRUOV_STR’?
+   37 |     QRUOV_fc,
+      |     ^~~~~~~~
+      |     QRUOV_STR
+qruov_config_h_gen.c:38:5: error: ‘QRUOV_fe’ undeclared (first use in this function); did you mean ‘QRUOV_STR’?
+   38 |     QRUOV_fe,
+      |     ^~~~~~~~
+      |     QRUOV_STR
+qruov_config_h_gen.c:39:5: error: ‘QRUOV_fc0’ undeclared (first use in this function); did you mean ‘QRUOV_STR’?
+   39 |     QRUOV_fc0,
+      |     ^~~~~~~~~
+      |     QRUOV_STR
+make: *** [Makefile:21: qruov_config.h] Error 1

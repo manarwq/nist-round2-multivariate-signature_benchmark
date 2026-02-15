@@ -1,0 +1,6 @@
+  📁 Path: /home/manar/Downloads/new/GitHub_PQC_Optimizations/qr-UOV/01_Reference_Implementation
+  🔨 Building...
+  ⚠️  Build issues:
+      |     ^~~~~~~~~
+      |     QRUOV_STR
+make: *** [Makefile:21: qruov_config.h] Error 1

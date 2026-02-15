@@ -1,0 +1,180 @@
+[  1%] Building C object src/CMakeFiles/mayo_common_sys.dir/common/randombytes_system.c.o
+[  2%] Building C object src/CMakeFiles/mayo_common_sys.dir/common/aes_c.c.o
+[  2%] Building C object src/CMakeFiles/mayo_common_sys.dir/common/aes128ctr.c.o
+[  3%] Building C object src/CMakeFiles/mayo_common_sys.dir/common/aes_neon.c.o
+[  4%] Building C object src/CMakeFiles/mayo_common_sys.dir/common/fips202.c.o
+[  5%] Building C object src/CMakeFiles/mayo_common_sys.dir/common/mem.c.o
+[  6%] Linking C static library libmayo_common_sys.a
+[  6%] Built target mayo_common_sys
+[  6%] Building C object src/CMakeFiles/mayo_common_test.dir/common/randombytes_ctrdrbg.c.o
+[  7%] Building C object src/CMakeFiles/mayo_common_test.dir/common/aes_c.c.o
+[  8%] Building C object src/CMakeFiles/mayo_common_test.dir/common/aes128ctr.c.o
+[  9%] Building C object src/CMakeFiles/mayo_common_test.dir/common/aes_neon.c.o
+[  9%] Building C object src/CMakeFiles/mayo_common_test.dir/common/fips202.c.o
+[ 10%] Building C object src/CMakeFiles/mayo_common_test.dir/common/mem.c.o
+[ 11%] Linking C static library libmayo_common_test.a
+[ 11%] Built target mayo_common_test
+[ 12%] Building C object src/CMakeFiles/mayo_1.dir/mayo.c.o
+[ 13%] Building C object src/CMakeFiles/mayo_1.dir/params.c.o
+[ 13%] Building C object src/CMakeFiles/mayo_1.dir/arithmetic.c.o
+[ 14%] Linking C static library libmayo_1.a
+[ 14%] Built target mayo_1
+[ 14%] Building C object src/CMakeFiles/mayo_1_test.dir/mayo.c.o
+[ 15%] Building C object src/CMakeFiles/mayo_1_test.dir/params.c.o
+[ 16%] Building C object src/CMakeFiles/mayo_1_test.dir/arithmetic.c.o
+[ 17%] Linking C static library libmayo_1_test.a
+[ 17%] Built target mayo_1_test
+[ 18%] Building C object src/CMakeFiles/mayo_2.dir/mayo.c.o
+[ 19%] Building C object src/CMakeFiles/mayo_2.dir/params.c.o
+[ 20%] Building C object src/CMakeFiles/mayo_2.dir/arithmetic.c.o
+[ 20%] Linking C static library libmayo_2.a
+[ 20%] Built target mayo_2
+[ 21%] Building C object src/CMakeFiles/mayo_2_test.dir/mayo.c.o
+[ 21%] Building C object src/CMakeFiles/mayo_2_test.dir/params.c.o
+[ 22%] Building C object src/CMakeFiles/mayo_2_test.dir/arithmetic.c.o
+[ 23%] Linking C static library libmayo_2_test.a
+[ 23%] Built target mayo_2_test
+[ 24%] Building C object src/CMakeFiles/mayo_3.dir/mayo.c.o
+[ 25%] Building C object src/CMakeFiles/mayo_3.dir/params.c.o
+[ 26%] Building C object src/CMakeFiles/mayo_3.dir/arithmetic.c.o
+[ 27%] Linking C static library libmayo_3.a
+[ 27%] Built target mayo_3
+[ 28%] Building C object src/CMakeFiles/mayo_3_test.dir/mayo.c.o
+[ 29%] Building C object src/CMakeFiles/mayo_3_test.dir/params.c.o
+[ 29%] Building C object src/CMakeFiles/mayo_3_test.dir/arithmetic.c.o
+[ 30%] Linking C static library libmayo_3_test.a
+[ 30%] Built target mayo_3_test
+[ 30%] Building C object src/CMakeFiles/mayo_5.dir/mayo.c.o
+[ 31%] Building C object src/CMakeFiles/mayo_5.dir/params.c.o
+[ 32%] Building C object src/CMakeFiles/mayo_5.dir/arithmetic.c.o
+[ 33%] Linking C static library libmayo_5.a
+[ 33%] Built target mayo_5
+[ 34%] Building C object src/CMakeFiles/mayo_5_test.dir/mayo.c.o
+[ 35%] Building C object src/CMakeFiles/mayo_5_test.dir/params.c.o
+[ 36%] Building C object src/CMakeFiles/mayo_5_test.dir/arithmetic.c.o
+[ 36%] Linking C static library libmayo_5_test.a
+[ 36%] Built target mayo_5_test
+[ 37%] Building C object src/CMakeFiles/mayo_1_nistapi.dir/mayo_1/api.c.o
+[ 38%] Linking C static library libmayo_1_nistapi.a
+[ 38%] Built target mayo_1_nistapi
+[ 38%] Building C object src/CMakeFiles/mayo_1_test_nistapi.dir/mayo_1/api.c.o
+[ 39%] Linking C static library libmayo_1_test_nistapi.a
+[ 39%] Built target mayo_1_test_nistapi
+[ 40%] Building C object src/CMakeFiles/mayo_2_nistapi.dir/mayo_2/api.c.o
+[ 41%] Linking C static library libmayo_2_nistapi.a
+[ 41%] Built target mayo_2_nistapi
+[ 42%] Building C object src/CMakeFiles/mayo_2_test_nistapi.dir/mayo_2/api.c.o
+[ 42%] Linking C static library libmayo_2_test_nistapi.a
+[ 42%] Built target mayo_2_test_nistapi
+[ 42%] Building C object src/CMakeFiles/mayo_3_nistapi.dir/mayo_3/api.c.o
+[ 43%] Linking C static library libmayo_3_nistapi.a
+[ 43%] Built target mayo_3_nistapi
+[ 44%] Building C object src/CMakeFiles/mayo_3_test_nistapi.dir/mayo_3/api.c.o
+[ 45%] Linking C static library libmayo_3_test_nistapi.a
+[ 45%] Built target mayo_3_test_nistapi
+[ 46%] Building C object src/CMakeFiles/mayo_5_nistapi.dir/mayo_5/api.c.o
+[ 46%] Linking C static library libmayo_5_nistapi.a
+[ 46%] Built target mayo_5_nistapi
+[ 47%] Building C object src/CMakeFiles/mayo_5_test_nistapi.dir/mayo_5/api.c.o
+[ 48%] Linking C static library libmayo_5_test_nistapi.a
+[ 48%] Built target mayo_5_test_nistapi
+[ 48%] Building C object apps/CMakeFiles/PQCgenKAT_sign_mayo_1.dir/PQCgenKAT_sign.c.o
+[ 49%] Linking C executable PQCgenKAT_sign_mayo_1
+[ 49%] Built target PQCgenKAT_sign_mayo_1
+[ 50%] Building C object apps/CMakeFiles/PQCgenKAT_sign_mayo_2.dir/PQCgenKAT_sign.c.o
+[ 51%] Linking C executable PQCgenKAT_sign_mayo_2
+[ 51%] Built target PQCgenKAT_sign_mayo_2
+[ 51%] Building C object apps/CMakeFiles/PQCgenKAT_sign_mayo_3.dir/PQCgenKAT_sign.c.o
+[ 52%] Linking C executable PQCgenKAT_sign_mayo_3
+[ 52%] Built target PQCgenKAT_sign_mayo_3
+[ 53%] Building C object apps/CMakeFiles/PQCgenKAT_sign_mayo_5.dir/PQCgenKAT_sign.c.o
+[ 54%] Linking C executable PQCgenKAT_sign_mayo_5
+[ 54%] Built target PQCgenKAT_sign_mayo_5
+[ 54%] Building C object apps/CMakeFiles/example_mayo_1.dir/example.c.o
+[ 55%] Linking C executable example_mayo_1
+[ 55%] Built target example_mayo_1
+[ 56%] Building C object apps/CMakeFiles/example_mayo_2.dir/example.c.o
+[ 57%] Linking C executable example_mayo_2
+[ 57%] Built target example_mayo_2
+[ 58%] Building C object apps/CMakeFiles/example_mayo_3.dir/example.c.o
+[ 58%] Linking C executable example_mayo_3
+[ 58%] Built target example_mayo_3
+[ 59%] Building C object apps/CMakeFiles/example_mayo_5.dir/example.c.o
+[ 60%] Linking C executable example_mayo_5
+[ 60%] Built target example_mayo_5
+[ 61%] Building C object apps/CMakeFiles/example_nistapi_mayo_1.dir/example_nistapi.c.o
+[ 61%] Linking C executable example_nistapi_mayo_1
+[ 61%] Built target example_nistapi_mayo_1
+[ 62%] Building C object apps/CMakeFiles/example_nistapi_mayo_2.dir/example_nistapi.c.o
+[ 63%] Linking C executable example_nistapi_mayo_2
+[ 63%] Built target example_nistapi_mayo_2
+[ 64%] Building C object apps/CMakeFiles/example_nistapi_mayo_3.dir/example_nistapi.c.o
+[ 64%] Linking C executable example_nistapi_mayo_3
+[ 64%] Built target example_nistapi_mayo_3
+[ 65%] Building C object apps/CMakeFiles/example_nistapi_mayo_5.dir/example_nistapi.c.o
+[ 66%] Linking C executable example_nistapi_mayo_5
+[ 66%] Built target example_nistapi_mayo_5
+[ 67%] Building C object test/CMakeFiles/mayo_test_kat_MAYO_1.dir/test_kat.c.o
+[ 67%] Linking C executable mayo_test_kat_MAYO_1
+[ 67%] Built target mayo_test_kat_MAYO_1
+[ 68%] Building C object test/CMakeFiles/mayo_bench_MAYO_1.dir/bench.c.o
+[ 68%] Building C object test/CMakeFiles/mayo_bench_MAYO_1.dir/m1cycles.c.o
+[ 69%] Linking C executable mayo_bench_MAYO_1
+[ 69%] Built target mayo_bench_MAYO_1
+[ 70%] Building C object test/CMakeFiles/mayo_test_scheme_MAYO_1.dir/test_mayo.c.o
+[ 71%] Linking C executable mayo_test_scheme_MAYO_1
+[ 71%] Built target mayo_test_scheme_MAYO_1
+[ 72%] Building C object test/CMakeFiles/mayo_test_sample_solution_MAYO_1.dir/test_sample_solution.c.o
+[ 73%] Linking C executable mayo_test_sample_solution_MAYO_1
+[ 73%] Built target mayo_test_sample_solution_MAYO_1
+[ 74%] Building C object test/CMakeFiles/mayo_test_various_MAYO_1.dir/test_various.c.o
+[ 75%] Linking C executable mayo_test_various_MAYO_1
+[ 75%] Built target mayo_test_various_MAYO_1
+[ 76%] Building C object test/CMakeFiles/mayo_test_kat_MAYO_2.dir/test_kat.c.o
+[ 77%] Linking C executable mayo_test_kat_MAYO_2
+[ 77%] Built target mayo_test_kat_MAYO_2
+[ 78%] Building C object test/CMakeFiles/mayo_bench_MAYO_2.dir/bench.c.o
+[ 79%] Building C object test/CMakeFiles/mayo_bench_MAYO_2.dir/m1cycles.c.o
+[ 80%] Linking C executable mayo_bench_MAYO_2
+[ 80%] Built target mayo_bench_MAYO_2
+[ 81%] Building C object test/CMakeFiles/mayo_test_scheme_MAYO_2.dir/test_mayo.c.o
+[ 81%] Linking C executable mayo_test_scheme_MAYO_2
+[ 81%] Built target mayo_test_scheme_MAYO_2
+[ 81%] Building C object test/CMakeFiles/mayo_test_sample_solution_MAYO_2.dir/test_sample_solution.c.o
+[ 82%] Linking C executable mayo_test_sample_solution_MAYO_2
+[ 82%] Built target mayo_test_sample_solution_MAYO_2
+[ 83%] Building C object test/CMakeFiles/mayo_test_various_MAYO_2.dir/test_various.c.o
+[ 83%] Linking C executable mayo_test_various_MAYO_2
+[ 83%] Built target mayo_test_various_MAYO_2
+[ 84%] Building C object test/CMakeFiles/mayo_test_kat_MAYO_3.dir/test_kat.c.o
+[ 85%] Linking C executable mayo_test_kat_MAYO_3
+[ 85%] Built target mayo_test_kat_MAYO_3
+[ 85%] Building C object test/CMakeFiles/mayo_bench_MAYO_3.dir/bench.c.o
+[ 86%] Building C object test/CMakeFiles/mayo_bench_MAYO_3.dir/m1cycles.c.o
+[ 87%] Linking C executable mayo_bench_MAYO_3
+[ 87%] Built target mayo_bench_MAYO_3
+[ 88%] Building C object test/CMakeFiles/mayo_test_scheme_MAYO_3.dir/test_mayo.c.o
+[ 89%] Linking C executable mayo_test_scheme_MAYO_3
+[ 89%] Built target mayo_test_scheme_MAYO_3
+[ 90%] Building C object test/CMakeFiles/mayo_test_sample_solution_MAYO_3.dir/test_sample_solution.c.o
+[ 91%] Linking C executable mayo_test_sample_solution_MAYO_3
+[ 91%] Built target mayo_test_sample_solution_MAYO_3
+[ 92%] Building C object test/CMakeFiles/mayo_test_various_MAYO_3.dir/test_various.c.o
+[ 93%] Linking C executable mayo_test_various_MAYO_3
+[ 93%] Built target mayo_test_various_MAYO_3
+[ 93%] Building C object test/CMakeFiles/mayo_test_kat_MAYO_5.dir/test_kat.c.o
+[ 94%] Linking C executable mayo_test_kat_MAYO_5
+[ 94%] Built target mayo_test_kat_MAYO_5
+[ 95%] Building C object test/CMakeFiles/mayo_bench_MAYO_5.dir/bench.c.o
+[ 95%] Building C object test/CMakeFiles/mayo_bench_MAYO_5.dir/m1cycles.c.o
+[ 96%] Linking C executable mayo_bench_MAYO_5
+[ 96%] Built target mayo_bench_MAYO_5
+[ 97%] Building C object test/CMakeFiles/mayo_test_scheme_MAYO_5.dir/test_mayo.c.o
+[ 97%] Linking C executable mayo_test_scheme_MAYO_5
+[ 97%] Built target mayo_test_scheme_MAYO_5
+[ 97%] Building C object test/CMakeFiles/mayo_test_sample_solution_MAYO_5.dir/test_sample_solution.c.o
+[ 98%] Linking C executable mayo_test_sample_solution_MAYO_5
+[ 98%] Built target mayo_test_sample_solution_MAYO_5
+[ 99%] Building C object test/CMakeFiles/mayo_test_various_MAYO_5.dir/test_various.c.o
+[100%] Linking C executable mayo_test_various_MAYO_5
+[100%] Built target mayo_test_various_MAYO_5
