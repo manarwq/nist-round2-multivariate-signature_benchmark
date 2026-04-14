@@ -9,7 +9,7 @@ alternative parameter sets proposed by Furue & Ikematsu (ePrint 2026/298).
 
 Their work demonstrated that the intersection attack using the p^l-truncated
 polynomial ring framework reduces the security of the original UOV parameters
-by 15–50 bits below claimed levels. Specifically:
+by 15–50 bits below claimed levels. Specifically-
 
 | Original Parameter | Claimed Security | Actual Security (intersection attack) | Reduction |
 |--------------------|-----------------|---------------------------------------|-----------|
