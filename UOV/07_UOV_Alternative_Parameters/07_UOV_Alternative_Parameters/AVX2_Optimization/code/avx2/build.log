@@ -1,0 +1,21 @@
+cc -O3  -std=c99 -Wall -Wextra -Wpedantic -Werror -fno-omit-frame-pointer -mavx2 -maes -I/usr/local/include -I/opt/local/include -I/usr/include -IIII -c III/aes128_4r_ffs.c
+cc -O3  -std=c99 -Wall -Wextra -Wpedantic -Werror -fno-omit-frame-pointer -mavx2 -maes -I/usr/local/include -I/opt/local/include -I/usr/include -IIII -c III/blas_matrix_avx2.c
+cc -O3  -std=c99 -Wall -Wextra -Wpedantic -Werror -fno-omit-frame-pointer -mavx2 -maes -I/usr/local/include -I/opt/local/include -I/usr/include -IIII -c III/blas_matrix.c
+cc -O3  -std=c99 -Wall -Wextra -Wpedantic -Werror -fno-omit-frame-pointer -mavx2 -maes -I/usr/local/include -I/opt/local/include -I/usr/include -IIII -c III/blas_matrix_ref.c
+cc -O3  -std=c99 -Wall -Wextra -Wpedantic -Werror -fno-omit-frame-pointer -mavx2 -maes -I/usr/local/include -I/opt/local/include -I/usr/include -IIII -c III/blas_matrix_sse.c
+cc -O3  -std=c99 -Wall -Wextra -Wpedantic -Werror -fno-omit-frame-pointer -mavx2 -maes -I/usr/local/include -I/opt/local/include -I/usr/include -IIII -c III/fips202.c
+cc -O3  -std=c99 -Wall -Wextra -Wpedantic -Werror -fno-omit-frame-pointer -mavx2 -maes -I/usr/local/include -I/opt/local/include -I/usr/include -IIII -c III/gf16_tabs.c
+cc -O3  -std=c99 -Wall -Wextra -Wpedantic -Werror -fno-omit-frame-pointer -mavx2 -maes -I/usr/local/include -I/opt/local/include -I/usr/include -IIII -c III/gf256_tabs.c
+cc -O3  -std=c99 -Wall -Wextra -Wpedantic -Werror -fno-omit-frame-pointer -mavx2 -maes -I/usr/local/include -I/opt/local/include -I/usr/include -IIII -c III/ov.c
+cc -O3  -std=c99 -Wall -Wextra -Wpedantic -Werror -fno-omit-frame-pointer -mavx2 -maes -I/usr/local/include -I/opt/local/include -I/usr/include -IIII -c III/ov_keypair.c
+cc -O3  -std=c99 -Wall -Wextra -Wpedantic -Werror -fno-omit-frame-pointer -mavx2 -maes -I/usr/local/include -I/opt/local/include -I/usr/include -IIII -c III/ov_keypair_computation.c
+cc -O3  -std=c99 -Wall -Wextra -Wpedantic -Werror -fno-omit-frame-pointer -mavx2 -maes -I/usr/local/include -I/opt/local/include -I/usr/include -IIII -c III/ov_publicmap.c
+cc -O3  -std=c99 -Wall -Wextra -Wpedantic -Werror -fno-omit-frame-pointer -mavx2 -maes -I/usr/local/include -I/opt/local/include -I/usr/include -IIII -c III/parallel_matrix_op.c
+cc -O3  -std=c99 -Wall -Wextra -Wpedantic -Werror -fno-omit-frame-pointer -mavx2 -maes -I/usr/local/include -I/opt/local/include -I/usr/include -IIII -c III/sign.c
+cc -O3  -std=c99 -Wall -Wextra -Wpedantic -Werror -fno-omit-frame-pointer -mavx2 -maes -I/usr/local/include -I/opt/local/include -I/usr/include -IIII -c III/utils.c
+cc -O3  -std=c99 -Wall -Wextra -Wpedantic -Werror -fno-omit-frame-pointer -mavx2 -maes -I/usr/local/include -I/opt/local/include -I/usr/include -IIII -c III/utils_hash.c
+cc -O3  -std=c99 -Wall -Wextra -Wpedantic -Werror -fno-omit-frame-pointer -mavx2 -maes -I/usr/local/include -I/opt/local/include -I/usr/include -IIII -c III/utils_prng.c
+cc -O3  -std=c99 -Wall -Wextra -Wpedantic -Werror -fno-omit-frame-pointer -mavx2 -maes -I/usr/local/include -I/opt/local/include -I/usr/include -IIII -c III/utils_randombytes.c
+cc -O3  -std=c99 -Wall -Wextra -Wpedantic -Werror -fno-omit-frame-pointer -mavx2 -maes -I/usr/local/include -I/opt/local/include -I/usr/include -IIII -c III/x86aesni.c
+cc -O3  -std=c99 -Wall -Wextra -Wpedantic -Werror -fno-omit-frame-pointer -mavx2 -maes -I/usr/local/include -I/opt/local/include -I/usr/include -IIII  -L/usr/local/lib -L/opt/local/lib -L/usr/lib aes128_4r_ffs.o blas_matrix_avx2.o blas_matrix.o blas_matrix_ref.o blas_matrix_sse.o fips202.o gf16_tabs.o gf256_tabs.o ov.o ov_keypair.o ov_keypair_computation.o ov_publicmap.o parallel_matrix_op.o sign.o utils.o utils_hash.o utils_prng.o utils_randombytes.o x86aesni.o sign_api-test.c -o sign_api-test -lcrypto
+rm ov.o parallel_matrix_op.o gf16_tabs.o aes128_4r_ffs.o blas_matrix.o gf256_tabs.o x86aesni.o fips202.o ov_keypair.o blas_matrix_sse.o utils_prng.o blas_matrix_ref.o sign.o utils_hash.o utils_randombytes.o utils.o ov_keypair_computation.o blas_matrix_avx2.o ov_publicmap.o
