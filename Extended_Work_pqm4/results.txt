@@ -1,0 +1,45 @@
+=== PLATFORM ===
+QEMU mps2-an386 (Cortex-M4 emulation)
+pqm4 framework
+arm-none-eabi-gcc 10.3.1
+
+=== MAYO BASELINE — Speed (cycles) ===
+MAYO-1: KeyGen=580016,  Sign=960283,  Verify=327935
+MAYO-2: KeyGen=682441,  Sign=786944,  Verify=330712
+MAYO-3: KeyGen=2408478, Sign=3027775, Verify=1772230
+
+=== MAYO BASELINE — Stack (bytes) ===
+MAYO-1: KeyGen=179276, Sign=251116, Verify=253484
+MAYO-2: KeyGen=169556, Sign=168612, Verify=159500
+MAYO-3: KeyGen=499388, Sign=591940, Verify=583100
+
+=== UOV BASELINE — Speed (cycles) ===
+ov-Ip (m4f):              KeyGen=2574021, Sign=188211,  Verify=196283
+ov-Ip-pkc (m4fspeed):     KeyGen=2996364, Sign=214146,  Verify=701075
+ov-Ip-pkc-skc (m4fspeed): KeyGen=3830650, Sign=2739577, Verify=1055244
+
+=== UOV BASELINE — Stack (bytes) ===
+ov-Ip (m4f):              KeyGen=18596,  Sign=5200,   Verify=2512
+ov-Ip-pkc (m4fspeed):     KeyGen=145176, Sign=5200,   Verify=280944
+ov-Ip-pkc-skc (m4fspeed): KeyGen=383088, Sign=243112, Verify=280944
+
+=== QR-UOV ===
+Not available in pqm4 — relies on OpenMP which is not supported on Cortex-M4
+
+=== MAYO ARM64 BASELINE (ref) — Speed (nsec, median) ===
+MAYO-1: KeyGen=15747328,  Sign=31573760,  Verify=22092800
+MAYO-2: KeyGen=17769216,  Sign=21973760,  Verify=13279744
+MAYO-3: KeyGen=52830976,  Sign=43167232,  Verify=53797376
+MAYO-5: KeyGen=115862528, Sign=153421824, Verify=115695616
+
+=== MAYO ARM64 LUT — Speed (nsec, median) ===
+MAYO-1: KeyGen=18924544,  Sign=30549248,  Verify=28103168
+MAYO-2: KeyGen=19940608,  Sign=20691456,  Verify=14263808
+MAYO-3: KeyGen=49082880,  Sign=77775872,  Verify=55710208
+MAYO-5: KeyGen=111473920, Sign=175939072, Verify=117312512
+
+=== MAYO ARM64 Constant-Time (CT) — Speed (nsec, median) ===
+MAYO-1: KeyGen=9126400,  Sign=14556672,  Verify=10085632
+MAYO-2: KeyGen=8038656,  Sign=10313984,  Verify=6439168
+MAYO-3: KeyGen=22555136, Sign=37354240,  Verify=25069312
+MAYO-5: KeyGen=57792000, Sign=90162944,  Verify=58220032

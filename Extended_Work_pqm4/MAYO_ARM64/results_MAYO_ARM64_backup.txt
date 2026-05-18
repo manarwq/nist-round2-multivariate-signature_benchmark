@@ -1,0 +1,102 @@
+=== MAYO ARM64 Benchmark Results ===
+Environment: Ubuntu 22.04 VM | QEMU aarch64 v6.2.0 | aarch64-linux-gnu-gcc 11.4.0
+Source: https://github.com/PQCMayo/MAYO-C
+Metric: Best median of 3 runs | 100 iterations | Charger connected
+Unit: milliseconds (ms)
+
+=== Ref — Best of 3 runs (ms) ===
+MAYO-1: KeyGen=6.8   Sign=11.1  Verify=7.7
+MAYO-2: KeyGen=6.2   Sign=8.0   Verify=4.5
+MAYO-3: KeyGen=17.8  Sign=29.5  Verify=18.7
+MAYO-5: KeyGen=41.8  Sign=72.9  Verify=41.2
+
+=== LUT — Best of 3 runs (ms) ===
+MAYO-1: KeyGen=8.2   Sign=16.7  Verify=14.0
+MAYO-2: KeyGen=10.4  Sign=9.1   Verify=5.3
+MAYO-3: KeyGen=20.7  Sign=29.3  Verify=20.4
+MAYO-5: KeyGen=38.8  Sign=59.5  Verify=41.9
+
+=== Obliv.LUT — Best of 3 runs (ms) ===
+MAYO-1: KeyGen=5.8   Sign=13.3  Verify=7.9
+MAYO-2: KeyGen=6.4   Sign=8.3   Verify=4.7
+MAYO-3: KeyGen=18.1  Sign=33.0  Verify=19.2
+MAYO-5: KeyGen=40.7  Sign=74.5  Verify=39.3
+
+=== CT — Best of 3 runs (ms) ===
+MAYO-1: KeyGen=6.7   Sign=10.9  Verify=7.6
+MAYO-2: KeyGen=6.0   Sign=8.2   Verify=5.0
+MAYO-3: KeyGen=17.7  Sign=29.2  Verify=19.0
+MAYO-5: KeyGen=41.7  Sign=70.2  Verify=40.9
+
+=== CT+LUT — Best of 3 runs (ms) ===
+MAYO-1: KeyGen=6.4   Sign=10.2  Verify=8.5
+MAYO-2: KeyGen=6.7   Sign=7.3   Verify=4.8
+MAYO-3: KeyGen=17.0  Sign=35.6  Verify=33.2
+MAYO-5: KeyGen=38.5  Sign=62.5  Verify=44.8
+
+=== CT+Obliv.LUT — Best of 3 runs (ms) ===
+MAYO-1: KeyGen=6.1   Sign=13.0  Verify=7.6
+MAYO-2: KeyGen=5.4   Sign=8.1   Verify=4.6
+MAYO-3: KeyGen=16.3  Sign=33.6  Verify=18.5
+MAYO-5: KeyGen=37.4  Sign=78.7  Verify=40.9
+
+=== NEON — Best of 3 runs (ms) ===
+MAYO-1: KeyGen=7.1   Sign=13.8  Verify=8.4
+MAYO-2: KeyGen=6.5   Sign=8.9   Verify=3.8
+MAYO-3: KeyGen=19.7  Sign=38.9  Verify=23.3
+MAYO-5: KeyGen=46.9  Sign=90.4  Verify=50.0
+
+=== OpenMP — Best of 3 runs (ms) ===
+MAYO-1: KeyGen=6.6   Sign=10.9  Verify=7.7
+MAYO-2: KeyGen=6.3   Sign=8.0   Verify=4.6
+MAYO-3: KeyGen=17.7  Sign=29.8  Verify=18.7
+MAYO-5: KeyGen=41.2  Sign=69.2  Verify=40.4
+
+=== O3 — Best of 3 runs (ms) ===
+MAYO-1: KeyGen=6.6   Sign=10.8  Verify=7.6
+MAYO-2: KeyGen=6.2   Sign=7.8   Verify=4.4
+MAYO-3: KeyGen=17.3  Sign=28.7  Verify=17.8
+MAYO-5: KeyGen=40.1  Sign=67.1  Verify=38.8
+
+=== LUT+O3 — Best of 3 runs (ms) ===
+MAYO-1: KeyGen=6.1   Sign=9.3   Verify=7.4
+MAYO-2: KeyGen=6.5   Sign=6.7   Verify=4.5
+MAYO-3: KeyGen=15.7  Sign=24.9  Verify=18.4
+MAYO-5: KeyGen=36.1  Sign=56.5  Verify=39.2
+
+=== CT+O3 — Best of 3 runs (ms) ===
+MAYO-1: KeyGen=6.5   Sign=10.8  Verify=7.6
+MAYO-2: KeyGen=5.8   Sign=7.4   Verify=4.3
+MAYO-3: KeyGen=17.4  Sign=28.5  Verify=18.1
+MAYO-5: KeyGen=40.6  Sign=66.7  Verify=39.0
+
+=== CT+LUT+O3 — Best of 3 runs (ms) ===
+MAYO-1: KeyGen=6.0   Sign=9.5   Verify=7.9
+MAYO-2: KeyGen=6.3   Sign=6.7   Verify=4.4
+MAYO-3: KeyGen=15.6  Sign=25.5  Verify=18.9
+MAYO-5: KeyGen=36.2  Sign=58.6  Verify=40.8
+
+=== CT+Obliv.LUT+O3 — Best of 3 runs (ms) ===
+MAYO-1: KeyGen=8.5   Sign=20.6  Verify=12.8
+MAYO-2: KeyGen=7.1   Sign=11.3  Verify=5.6
+MAYO-3: KeyGen=16.2  Sign=31.7  Verify=19.0
+MAYO-5: KeyGen=37.3  Sign=77.9  Verify=39.7
+
+=== Memory (RSS kB) — All configurations ===
+Baseline QEMU+binary: ~18,704 kB
+Implementation delta:  ~8,192 - 8,448 kB
+Note: All optimizations maintain same memory footprint (~8 MB delta)
+
+=== KAT Verification ===
+All 13 configurations passed KAT (Known Answer Tests) ✓
+Schemes tested: MAYO-1, MAYO-2, MAYO-3, MAYO-5
+
+=== Security Analysis ===
+Ref:              None (bitwise GF16 mul, volatile blocker)
+LUT:              Partial — cache-timing attack possible (secret index)
+Obliv.LUT:        Cache-safe ✓ (oblivious lookup, bitwise masking)
+CT:               CT branch-free — removes volatile blocker → faster on QEMU
+CT+LUT:           CT + cache-vulnerable LUT
+CT+Obliv.LUT:     Full CT + cache-safe ✓✓ (most secure)
+O3 variants:      Same security as base configuration
+NEON/OpenMP:      Same security as Ref
