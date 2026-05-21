@@ -1,0 +1,16 @@
+=== dudect MAYO Constant-Time Verification ===
+Tool: dudect (Welch t-test, DATE 2017)
+Threshold: |t| < 4.5 = no leakage
+Measurements: 50,000 per config
+
+=== Ref ===
+BUILD FAILED
+=== CT ===
+BUILD FAILED
+=== CT+Obliv.LUT ===
+BUILD FAILED
+=== CT+O3 ===
+BUILD FAILED
+=== CT+Obliv.LUT+O3 ===
+BUILD FAILED
+=== ALL DONE ===

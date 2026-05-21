@@ -1,0 +1,731 @@
+=== MAYO ARM64 BENCHMARK RESULTS (median, nsec) ===
+Date: 2026-04-24
+Environment: Ubuntu 22.04 VM, QEMU aarch64 6.2.0, aarch64-linux-gnu-gcc 11.4.0
+Build base: MAYO-C reference implementation
+
+=== 1. REF BASELINE ===
+Build: -DMAYO_BUILD_TYPE=ref -march=armv8-a
+MAYO-1: KeyGen=15747328,  Sign=31573760,  Verify=22092800
+MAYO-2: KeyGen=17769216,  Sign=21973760,  Verify=13279744
+MAYO-3: KeyGen=52830976,  Sign=43167232,  Verify=53797376
+MAYO-5: KeyGen=115862528, Sign=153421824, Verify=115695616
+
+=== 2. LUT (GF16 Lookup Table) ===
+Build: -DMAYO_BUILD_TYPE=ref -march=armv8-a + simple_arithmetic_lut.h
+MAYO-1: KeyGen=18924544,  Sign=30549248,  Verify=28103168
+MAYO-2: KeyGen=19940608,  Sign=20691456,  Verify=14263808
+MAYO-3: KeyGen=49082880,  Sign=77775872,  Verify=55710208
+MAYO-5: KeyGen=111473920, Sign=175939072, Verify=117312512
+
+=== 3. NEON ===
+Build: -DMAYO_BUILD_TYPE=neon -march=armv8-a+simd
+MAYO-1: KeyGen=20502784,  Sign=39846144,  Verify=23824384
+MAYO-2: KeyGen=19315968,  Sign=24995840,  Verify=12004352
+MAYO-3: KeyGen=55429376,  Sign=110679296, Verify=64813056
+MAYO-5: KeyGen=131542272, Sign=322735872, Verify=188278016
+
+=== 4. OpenMP ===
+Build: -DMAYO_BUILD_TYPE=ref -march=armv8-a -fopenmp
+MAYO-1: KeyGen=18598912,  Sign=39544320,  Verify=23280640
+MAYO-2: KeyGen=21822464,  Sign=27171840,  Verify=13501952
+MAYO-3: KeyGen=55226368,  Sign=90083072,  Verify=52188928
+MAYO-5: KeyGen=123448832, Sign=211138048, Verify=118405120
+
+=== 5. O3 ===
+Build: -DMAYO_BUILD_TYPE=ref -march=armv8-a -O3 -funroll-loops -fomit-frame-pointer
+MAYO-1: KeyGen=19760128,  Sign=33576704,  Verify=21805056
+MAYO-2: KeyGen=16015872,  Sign=20866048,  Verify=10985472
+MAYO-3: KeyGen=48727808,  Sign=110713600, Verify=70547712
+MAYO-5: KeyGen=174257408, Sign=248346112, Verify=167226624
+
+=== 6. LUT + O3 ===
+Build: -DMAYO_BUILD_TYPE=ref -march=armv8-a -O3 -funroll-loops + simple_arithmetic_lut.h
+MAYO-1: KeyGen=16293376,  Sign=18175232,  Verify=29269760
+MAYO-2: KeyGen=24880896,  Sign=25261568,  Verify=17284608
+MAYO-3: KeyGen=54587136,  Sign=85496064,  Verify=61784832
+MAYO-5: KeyGen=107994624, Sign=145355520, Verify=102977792
+
+=== 7. NEON + O3 ===
+Build: -DMAYO_BUILD_TYPE=neon -march=armv8-a+simd -O3 -funroll-loops
+MAYO-1: KeyGen=17979392,  Sign=34611200,  Verify=21666816
+MAYO-2: KeyGen=16125440,  Sign=24298496,  Verify=10530048
+MAYO-3: KeyGen=50882560,  Sign=99218176,  Verify=60325120
+MAYO-5: KeyGen=122159104, Sign=325950720, Verify=153775104
+
+=== 8. LUT + OpenMP + O3 ===
+Build: -DMAYO_BUILD_TYPE=ref -march=armv8-a -O3 -fopenmp + simple_arithmetic_lut.h
+MAYO-1: KeyGen=18529024,  Sign=33101312,  Verify=22956288
+MAYO-2: KeyGen=20110336,  Sign=25116672,  Verify=14686720
+MAYO-3: KeyGen=48512000,  Sign=82462464,  Verify=52305408
+MAYO-5: KeyGen=109505024, Sign=182771456, Verify=118766592
+
+=== 9. CT (Constant-Time, ENABLE_CT_TESTING=ON) ===
+Build: -DMAYO_BUILD_TYPE=ref -march=armv8-a -DENABLE_CT_TESTING=ON
+MAYO-1: KeyGen=9126400,   Sign=14556672,  Verify=10085632
+MAYO-2: KeyGen=8038656,   Sign=10313984,  Verify=6439168
+MAYO-3: KeyGen=22555136,  Sign=37354240,  Verify=25069312
+MAYO-5: KeyGen=57792000,  Sign=90162944,  Verify=58220032
+
+=== 10. CT + LUT ===
+Build: -DMAYO_BUILD_TYPE=ref -march=armv8-a -DENABLE_CT_TESTING=ON + simple_arithmetic_lut.h
+MAYO-1: KeyGen=9745920,   Sign=14749696,  Verify=11853312
+MAYO-2: KeyGen=8082432,   Sign=12222208,  Verify=6463744
+MAYO-3: KeyGen=19008512,  Sign=26953216,  Verify=20839168
+MAYO-5: KeyGen=38933760,  Sign=61391104,  Verify=44538368
+
+=== 11. CT + LUT + O3 ===
+Build: -DMAYO_BUILD_TYPE=ref -march=armv8-a -DENABLE_CT_TESTING=ON -O3 + simple_arithmetic_lut.h
+MAYO-1: KeyGen=10365440,  Sign=14749696,  Verify=15493888
+MAYO-2: KeyGen=8952320,   Sign=10670336,  Verify=8910080
+MAYO-3: KeyGen=23627776,  Sign=34383360,  Verify=26219776
+MAYO-5: KeyGen=56313856,  Sign=76785152,  Verify=59189760
+
+=== CORTEX-M4 BASELINE (cycles, from pqm4) ===
+MAYO-1: KeyGen=580016,   Sign=960283,   Verify=327935
+MAYO-2: KeyGen=682441,   Sign=786944,   Verify=330712
+MAYO-3: KeyGen=2408478,  Sign=3027775,  Verify=1772230
+ov-Ip:          KeyGen=2574021, Sign=188211,  Verify=196283
+ov-Ip-pkc:      KeyGen=2996364, Sign=214146,  Verify=701075
+ov-Ip-pkc-skc:  KeyGen=3830650, Sign=2739577, Verify=1055244
+
+=== 12. CT + Oblivious LUT (Secure LUT) ===
+Build: -DMAYO_BUILD_TYPE=ref -march=armv8-a -DENABLE_CT_TESTING=ON + oblivious LUT
+MAYO-1: KeyGen=8847872,  Sign=14543104,  Verify=8329984
+MAYO-2: KeyGen=5932288,  Sign=5380864,   Verify=5817344
+MAYO-3: KeyGen=16009984, Sign=32861184,  Verify=25311744
+MAYO-5: KeyGen=46819328, Sign=66152448,  Verify=50616064
+
+=== UOV ARM64 Ref Baseline — Speed (microseconds, best of 3 runs) ===
+ov-Ip-classic:   KeyGen=456103,   Sign=7899,    Verify=3132
+ov-Ip-pkc:       KeyGen=453431,   Sign=8179,    Verify=56364
+ov-Ip-pkc-skc:   KeyGen=449948,   Sign=320817,  Verify=59496
+ov-III-classic:  KeyGen=3024517,  Sign=32442,   Verify=11154
+ov-III-pkc:      KeyGen=2929596,  Sign=34422,   Verify=247857
+ov-III-pkc-skc:  KeyGen=3140973,  Sign=1746926, Verify=221378
+ov-V-classic:    KeyGen=7807699,  Sign=64019,   Verify=20868
+ov-V-pkc:        KeyGen=7830254,  Sign=64250,   Verify=489261
+ov-V-pkc-skc:    KeyGen=8184963,  Sign=5252957, Verify=515715
+
+=== UOV ARM64 Memory (RSS kB) ===
+Baseline (QEMU): 10,368
+ov-Ip-classic:   21,392  (delta: 11,024)
+ov-Ip-pkc:       21,136  (delta: 10,768)
+ov-Ip-pkc-skc:   21,260  (delta: 10,892)
+ov-III-classic:  22,916  (delta: 12,548)
+ov-III-pkc:      23,112  (delta: 12,744)
+ov-III-pkc-skc:  23,120  (delta: 12,752)
+ov-V-classic:    26,016  (delta: 15,648)
+ov-V-pkc:        26,400  (delta: 16,032)
+ov-V-pkc-skc:    26,384  (delta: 16,016)
+
+=== UOV ARM64 Speed Baseline (microseconds, best of 3 runs, 100 iterations) ===
+ov-Ip-classic:   KeyGen=456,103   Sign=7,899    Verify=3,132
+ov-Ip-pkc:       KeyGen=453,431   Sign=8,179    Verify=56,364
+ov-Ip-pkc-skc:   KeyGen=449,948   Sign=320,817  Verify=59,496
+ov-III-classic:  KeyGen=3,024,517 Sign=32,442   Verify=11,154
+ov-III-pkc:      KeyGen=2,929,596 Sign=34,422   Verify=247,857
+ov-III-pkc-skc:  KeyGen=3,140,973 Sign=1,746,926 Verify=221,378
+ov-V-classic:    KeyGen=7,807,699 Sign=64,019   Verify=20,868
+ov-V-pkc:        KeyGen=7,830,254 Sign=64,250   Verify=489,261
+ov-V-pkc-skc:    KeyGen=8,184,963 Sign=5,252,957 Verify=515,715
+
+=== UOV ARM64 O3 — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=118483  Sign=2209   Verify=393
+ov-Ip-pkc:       KeyGen=110336  Sign=2612   Verify=14707
+ov-Ip-pkc-skc:   KeyGen=151719  Sign=112198 Verify=16371
+ov-III-classic:  KeyGen=967470  Sign=10859  Verify=1538
+ov-III-pkc:      KeyGen=976673  Sign=10859  Verify=70379
+ov-III-pkc-skc:  KeyGen=969237  Sign=660661 Verify=72198
+ov-V-classic:    KeyGen=2609864 Sign=22811  Verify=2459
+ov-V-pkc:        KeyGen=2620617 Sign=22779  Verify=159003
+ov-V-pkc-skc:    KeyGen=2677866 Sign=1706278 Verify=159519
+
+=== UOV ARM64 NEON — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=457029  Sign=8131   Verify=3225
+ov-Ip-pkc:       KeyGen=441846  Sign=8159   Verify=54827
+ov-Ip-pkc-skc:   KeyGen=464211  Sign=309809 Verify=56218
+ov-III-classic:  KeyGen=3103470 Sign=34196  Verify=11833
+ov-III-pkc:      KeyGen=2974090 Sign=34275  Verify=249830
+ov-III-pkc-skc:  KeyGen=2915270 Sign=2049432 Verify=249436
+ov-V-classic:    KeyGen=9341966 Sign=82246  Verify=26420
+ov-V-pkc:        KeyGen=9181861 Sign=77730  Verify=567357
+ov-V-pkc-skc:    KeyGen=9133440 Sign=6036341 Verify=587468
+
+=== UOV ARM64 OpenMP — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=463878  Sign=8070   Verify=3236
+ov-Ip-pkc:       KeyGen=447052  Sign=7843   Verify=53769
+ov-Ip-pkc-skc:   KeyGen=444290  Sign=314951 Verify=59201
+ov-III-classic:  KeyGen=3040277 Sign=34159  Verify=11541
+ov-III-pkc:      KeyGen=3048370 Sign=34421  Verify=244253
+ov-III-pkc-skc:  KeyGen=3058971 Sign=2024826 Verify=257113
+ov-V-classic:    KeyGen=9399956 Sign=77813  Verify=24815
+ov-V-pkc:        KeyGen=9374612 Sign=78302  Verify=592617
+ov-V-pkc-skc:    KeyGen=9077668 Sign=6158849 Verify=598596
+
+=== UOV ARM64 LUT — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=476212  Sign=7901   Verify=3128
+ov-Ip-pkc:       KeyGen=458094  Sign=8192   Verify=56207
+ov-Ip-pkc-skc:   KeyGen=465178  Sign=308666 Verify=57045
+ov-III-classic:  KeyGen=3089273 Sign=33351  Verify=11597
+ov-III-pkc:      KeyGen=3099972 Sign=33351  Verify=240237
+ov-III-pkc-skc:  KeyGen=3052366 Sign=2053784 Verify=260755
+ov-V-classic:    KeyGen=9311492 Sign=77764  Verify=24972
+ov-V-pkc:        KeyGen=9298238 Sign=79569  Verify=603531
+ov-V-pkc-skc:    KeyGen=9184610 Sign=6040561 Verify=598398
+
+=== UOV ARM64 LUT+O3 — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=159337  Sign=2872   Verify=496
+ov-Ip-pkc:       KeyGen=138951  Sign=2807   Verify=15631
+ov-Ip-pkc-skc:   KeyGen=144267  Sign=107193 Verify=15501
+ov-III-classic:  KeyGen=962214  Sign=10073  Verify=1383
+ov-III-pkc:      KeyGen=937687  Sign=10494  Verify=68481
+ov-III-pkc-skc:  KeyGen=953966  Sign=663114 Verify=68481
+ov-V-classic:    KeyGen=2738810 Sign=23058  Verify=2461
+ov-V-pkc:        KeyGen=2643717 Sign=23091  Verify=159054
+ov-V-pkc-skc:    KeyGen=2707967 Sign=1754358 Verify=167377
+
+=== UOV ARM64 Obliv.LUT — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=380787  Sign=6801   Verify=2692
+ov-Ip-pkc:       KeyGen=381967  Sign=6790   Verify=46498
+ov-Ip-pkc-skc:   KeyGen=377317  Sign=257536 Verify=47423
+ov-III-classic:  KeyGen=2560650 Sign=27679  Verify=9568
+ov-III-pkc:      KeyGen=2492227 Sign=27679  Verify=201321
+ov-III-pkc-skc:  KeyGen=2536428 Sign=1690160 Verify=204224 
+ov-V-classic:    KeyGen=7886709 Sign=64068  Verify=20750
+ov-V-pkc:        KeyGen=7560733 Sign=64420  Verify=482757
+ov-V-pkc-skc:    KeyGen=7548038 Sign=4957742 Verify=483988
+
+=== UOV ARM64 Obliv.LUT — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=380787  Sign=6801   Verify=2692
+ov-Ip-pkc:       KeyGen=381967  Sign=6790   Verify=46498
+ov-Ip-pkc-skc:   KeyGen=377317  Sign=257536 Verify=47423
+ov-III-classic:  KeyGen=2560650 Sign=27679  Verify=9568
+ov-III-pkc:      KeyGen=2492227 Sign=27679  Verify=201321
+ov-III-pkc-skc:  KeyGen=2536428 Sign=1690160 Verify=204224 
+ov-V-classic:    KeyGen=7886709 Sign=64068  Verify=20750
+ov-V-pkc:        KeyGen=7560733 Sign=64420  Verify=482757
+ov-V-pkc-skc:    KeyGen=7548038 Sign=4957742 Verify=483988
+
+=== UOV ARM64 Obliv.LUT+O3 — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=129592  Sign=2298   Verify=367
+ov-Ip-pkc:       KeyGen=128214  Sign=2287   Verify=12740
+ov-Ip-pkc-skc:   KeyGen=130010  Sign=89534  Verify=13063
+ov-III-classic:  KeyGen=806774  Sign=8860   Verify=1120
+ov-III-pkc:      KeyGen=822823  Sign=8862   Verify=55226
+ov-III-pkc-skc:  KeyGen=800123  Sign=554696 Verify=56538
+ov-V-classic:    KeyGen=2210756 Sign=19057  Verify=1832
+ov-V-pkc:        KeyGen=2203772 Sign=19024  Verify=129496
+ov-V-pkc-skc:    KeyGen=2202681 Sign=1445604 Verify=128820
+
+=== UOV ARM64 NEON+O3 — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=158816  Sign=2393   Verify=399
+ov-Ip-pkc:       KeyGen=159717  Sign=2755   Verify=15065
+ov-Ip-pkc-skc:   KeyGen=146502  Sign=104352 Verify=15388
+ov-III-classic:  KeyGen=930041  Sign=10034  Verify=1393
+ov-III-pkc:      KeyGen=988237  Sign=10888  Verify=60433
+ov-III-pkc-skc:  KeyGen=933492  Sign=639783 Verify=66258
+ov-V-classic:    KeyGen=2633956 Sign=18715  Verify=1849
+ov-V-pkc:        KeyGen=2633679 Sign=19203  Verify=134370
+ov-V-pkc-skc:    KeyGen=2679236 Sign=1692700 Verify=161800
+
+=== UOV ARM64 OpenMP+O3 — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=152607  Sign=2955   Verify=504
+ov-Ip-pkc:       KeyGen=155796  Sign=2973   Verify=16451
+ov-Ip-pkc-skc:   KeyGen=141183  Sign=110226 Verify=15963
+ov-III-classic:  KeyGen=953033  Sign=9909   Verify=1383
+ov-III-pkc:      KeyGen=992952  Sign=11037  Verify=59629
+ov-III-pkc-skc:  KeyGen=928338  Sign=673950 Verify=59066
+ov-V-classic:    KeyGen=2703179 Sign=23030  Verify=2485
+ov-V-pkc:        KeyGen=2597340 Sign=22882  Verify=143707
+ov-V-pkc-skc:    KeyGen=2672897 Sign=1726585 Verify=135663
+
+=== UOV ARM64 GE_CT — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=488099  Sign=7363   Verify=3070
+ov-Ip-pkc:       KeyGen=470222  Sign=8158   Verify=57306
+ov-Ip-pkc-skc:   KeyGen=451062  Sign=313730 Verify=57210
+ov-III-classic:  KeyGen=3136404 Sign=32344  Verify=11655
+ov-III-pkc:      KeyGen=3006166 Sign=32344  Verify=250119
+ov-III-pkc-skc:  KeyGen=2975226 Sign=2040345 Verify=256607
+ov-V-classic:    KeyGen=9146867 Sign=72797  Verify=24980
+ov-V-pkc:        KeyGen=9139420 Sign=75016  Verify=531172
+ov-V-pkc-skc:    KeyGen=9229220 Sign=6101550 Verify=573565
+
+=== UOV ARM64 GE_CT+LUT — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=489012  Sign=7554   Verify=3098
+ov-Ip-pkc:       KeyGen=489869  Sign=8328   Verify=57995
+ov-Ip-pkc-skc:   KeyGen=469741  Sign=307585 Verify=57369
+ov-III-classic:  KeyGen=3098816 Sign=31656  Verify=11374
+ov-III-pkc:      KeyGen=3036090 Sign=32051  Verify=253110
+ov-III-pkc-skc:  KeyGen=3038734 Sign=2047405 Verify=258479
+ov-V-classic:    KeyGen=9183508 Sign=72279  Verify=24452
+ov-V-pkc:        KeyGen=9201626 Sign=74435  Verify=555167
+ov-V-pkc-skc:    KeyGen=9435157 Sign=5900653 Verify=521975
+
+=== UOV ARM64 GE_CT+Obliv.LUT — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=466348  Sign=7559   Verify=3006
+ov-Ip-pkc:       KeyGen=461880  Sign=7850   Verify=55514
+ov-Ip-pkc-skc:   KeyGen=436868  Sign=304190 Verify=57311
+ov-III-classic:  KeyGen=3020746 Sign=31146  Verify=11220
+ov-III-pkc:      KeyGen=3073810 Sign=33017  Verify=254232
+ov-III-pkc-skc:  KeyGen=3100118 Sign=1961513 Verify=252855
+ov-V-classic:    KeyGen=9199951 Sign=71453  Verify=24096
+ov-V-pkc:        KeyGen=9188624 Sign=74246  Verify=551146
+ov-V-pkc-skc:    KeyGen=9116730 Sign=6093873 Verify=557188
+
+=== UOV ARM64 GE_CT+Obliv.LUT — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=466348  Sign=7559   Verify=3006
+ov-Ip-pkc:       KeyGen=461880  Sign=7850   Verify=55514
+ov-Ip-pkc-skc:   KeyGen=436868  Sign=304190 Verify=57311
+ov-III-classic:  KeyGen=3020746 Sign=31146  Verify=11220
+ov-III-pkc:      KeyGen=3073810 Sign=33017  Verify=254232
+ov-III-pkc-skc:  KeyGen=3100118 Sign=1961513 Verify=252855
+ov-V-classic:    KeyGen=9199951 Sign=71453  Verify=24096
+ov-V-pkc:        KeyGen=9188624 Sign=74246  Verify=551146
+ov-V-pkc-skc:    KeyGen=9116730 Sign=6093873 Verify=557188
+
+=== UOV ARM64 Memory — Ref Configuration (RSS kB) ===
+Baseline QEMU: 10,368
+
+ov-Ip-classic:   21,392
+ov-Ip-pkc:       21,136
+ov-Ip-pkc-skc:   21,260
+
+ov-III-classic:  22,788
+ov-III-pkc:      22,788
+ov-III-pkc-skc:  22,964
+
+ov-V-classic:    25,712
+ov-V-pkc:        26,236
+ov-V-pkc-skc:    26,060
+
+Note: All optimizations maintain same footprint (variation < 400 kB)
+
+=== UOV ARM64 Memory — All Configurations (RSS kB) ===
+Baseline QEMU: 10,368
+
+Config          | Ip-classic | Ip-pkc  | Ip-pkc-skc | III-classic | III-pkc | III-pkc-skc | V-classic | V-pkc  | V-pkc-skc
+Ref             | 21004      | 20932   | 21340      | 22792       | 22920   | 22988       | 25756     | 26020  | 26044
+O3              | 20928      | 21412   | 23260      | 22852       | 24080   | 24892       | 25948     | 26332  | 28004
+LUT             | 20996      | 21256   | 21220      | 22916       | 22984   | 22984       | 25892     | 26140  | 26176
+LUT+O3          | 20984      | 21416   | 23280      | 22848       | 22980   | 25240       | 25680     | 26076  | 27916
+Obliv.LUT       | 21124      | 21032   | 21124      | 22788       | 22984   | 22988       | 25884     | 26280  | 26044
+Obliv.LUT+O3    | 21100      | 21416   | 23176      | 22856       | 23072   | 25020       | 26080     | 26204  | 28164
+GE_CT           | 21252      | 21072   | 21268      | 22784       | 23116   | 22988       | 25628     | 26268  | 25984
+GE_CT+O3        | 20924      | 21544   | 23272      | 22852       | 22856   | 25104       | 25824     | 26116  | 27916
+GE_CT+LUT       | 21260      | 21124   | 21056      | 22916       | 22860   | 22748       | 25628     | 26144  | 26072
+GE_CT+Obliv.LUT | 20896      | 21008   | 21116      | 22788       | 22784   | 22784       | 25400     | 26264  | 26172
+NEON            | 21384      | 21204   | 21428      | 23048       | 23208   | 23280       | 26020     | 26524  | 26464
+NEON+O3         | 21328      | 21192   | 21284      | 22848       | 23248   | 24948       | 25644     | 26452  | 28088
+OpenMP          | 20996      | 21128   | 21344      | 22788       | 22840   | 22988       | 25764     | 26252  | 25892
+OpenMP+O3       | 20936      | 21416   | 23264      | 22764       | 22868   | 25084       | 25692     | 26204  | 27708
+
+=== UOV ARM64 GF256_Full_LUT — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=452479  Sign=7638   Verify=3021
+ov-Ip-pkc:       KeyGen=418095  Sign=7757   Verify=52541
+ov-Ip-pkc-skc:   KeyGen=445719  Sign=340731 Verify=67085
+ov-III-classic:  KeyGen=2857581 Sign=31673  Verify=10844
+ov-III-pkc:      KeyGen=3001393 Sign=33846  Verify=245228
+ov-III-pkc-skc:  KeyGen=3079526 Sign=2220959 Verify=272872
+ov-V-classic:    KeyGen=9437940 Sign=81487  Verify=26138
+ov-V-pkc:        KeyGen=10470939 Sign=88036 Verify=671040
+ov-V-pkc-skc:    KeyGen=9568652 Sign=6548502 Verify=652287
+
+=== UOV ARM64 GF256_LogExp_LUT — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=361710  Sign=6224   Verify=2440
+ov-Ip-pkc:       KeyGen=350723  Sign=7353   Verify=49420
+ov-Ip-pkc-skc:   KeyGen=427288  Sign=306270 Verify=56630
+ov-III-classic:  KeyGen=3050280 Sign=31307  Verify=10588
+ov-III-pkc:      KeyGen=3292138 Sign=33623  Verify=241408
+ov-III-pkc-skc:  KeyGen=3600155 Sign=2075975 Verify=260283
+ov-V-classic:    KeyGen=9700773 Sign=76187  Verify=24376
+ov-V-pkc:        KeyGen=9521056 Sign=79301  Verify=594396
+ov-V-pkc-skc:    KeyGen=9654696 Sign=6598864 Verify=648558
+
+=== UOV ARM64 GF16+GF256_LogExp Combined — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=493675  Sign=7964   Verify=3165
+ov-Ip-pkc:       KeyGen=472410  Sign=8953   Verify=62085
+ov-Ip-pkc-skc:   KeyGen=424429  Sign=312598 Verify=57425
+ov-III-classic:  KeyGen=2957402 Sign=32105  Verify=11176
+ov-III-pkc:      KeyGen=3010944 Sign=34711  Verify=255633
+ov-III-pkc-skc:  KeyGen=3570527 Sign=2192530 Verify=274598
+ov-V-classic:    KeyGen=10183947 Sign=87234 Verify=27468
+ov-V-pkc:        KeyGen=9945037 Sign=66235  Verify=506893
+ov-V-pkc-skc:    KeyGen=7626711 Sign=6748420 Verify=671832
+
+=== UOV ARM64 GF16+GF256_Full Combined — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=443992  Sign=7531   Verify=3051
+ov-Ip-pkc:       KeyGen=443985  Sign=8237   Verify=56304
+ov-Ip-pkc-skc:   KeyGen=438306  Sign=307184 Verify=56637
+ov-III-classic:  KeyGen=3217255 Sign=36445  Verify=12736
+ov-III-pkc:      KeyGen=2986489 Sign=34153  Verify=248608
+ov-III-pkc-skc:  KeyGen=3043116 Sign=2047598 Verify=259063
+ov-V-classic:    KeyGen=9311395 Sign=78065  Verify=25880
+ov-V-pkc:        KeyGen=9040275 Sign=89927  Verify=672312
+ov-V-pkc-skc:    KeyGen=10281683 Sign=6331689 Verify=615082
+
+=== UOV ARM64 GF256_Obliv_Full — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=461528  Sign=8184   Verify=3207
+ov-Ip-pkc:       KeyGen=448280  Sign=8128   Verify=56154
+ov-Ip-pkc-skc:   KeyGen=531996  Sign=333028 Verify=61736
+ov-III-classic:  KeyGen=3266166 Sign=35208  Verify=11933
+ov-III-pkc:      KeyGen=3186745 Sign=34630  Verify=261063
+ov-III-pkc-skc:  KeyGen=2924652 Sign=2160270 Verify=267147
+ov-V-classic:    KeyGen=9490011 Sign=89158  Verify=28141
+ov-V-pkc:        KeyGen=9597201 Sign=86304  Verify=642996
+ov-V-pkc-skc:    KeyGen=9562469 Sign=6367694 Verify=641102
+
+=== UOV ARM64 GF256_Obliv_LogExp — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=452070  Sign=7481   Verify=2990
+ov-Ip-pkc:       KeyGen=433878  Sign=7763   Verify=52698
+ov-Ip-pkc-skc:   KeyGen=432548  Sign=301806 Verify=56643
+ov-III-classic:  KeyGen=2929657 Sign=35374  Verify=12423
+ov-III-pkc:      KeyGen=3189891 Sign=37392  Verify=273617
+ov-III-pkc-skc:  KeyGen=2959220 Sign=2252623 Verify=290003
+ov-V-classic:    KeyGen=9935026 Sign=89989  Verify=28427
+ov-V-pkc:        KeyGen=10084114 Sign=74931 Verify=569049
+ov-V-pkc-skc:    KeyGen=9317846 Sign=6465851 Verify=644702
+
+=== UOV ARM64 Obliv.LUT+GE_CT+O3 — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=161720  Sign=1940   Verify=346
+ov-Ip-pkc:       KeyGen=118010  Sign=1959   Verify=11187
+ov-Ip-pkc-skc:   KeyGen=143599  Sign=103788 Verify=15004
+ov-III-classic:  KeyGen=830606  Sign=10776  Verify=1558
+ov-III-pkc:      KeyGen=953818  Sign=8089   Verify=54711
+ov-III-pkc-skc:  KeyGen=772190  Sign=590697 Verify=61299
+ov-V-classic:    KeyGen=2501730 Sign=19782  Verify=2363
+ov-V-pkc:        KeyGen=2552211 Sign=25110  Verify=155835 
+ov-V-pkc-skc:    KeyGen=2543562 Sign=1728374 Verify=160920
+
+=== UOV ARM64 Obliv.LUT+OpenMP — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=423437  Sign=5729   Verify=2319
+ov-Ip-pkc:       KeyGen=333668  Sign=6285   Verify=42946
+ov-Ip-pkc-skc:   KeyGen=369209  Sign=348223 Verify=64514
+ov-III-classic:  KeyGen=2922589 Sign=33579  Verify=11623
+ov-III-pkc:      KeyGen=3070533 Sign=35445  Verify=248360
+ov-III-pkc-skc:  KeyGen=3018473 Sign=2220904 Verify=276871
+ov-V-classic:    KeyGen=8654287 Sign=79266  Verify=25500
+ov-V-pkc:        KeyGen=9454536 Sign=75116  Verify=524834
+ov-V-pkc-skc:    KeyGen=9263695 Sign=5477692 Verify=549206 
+
+=== UOV ARM64 Obliv.LUT+OpenMP+O3 — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=161661  Sign=2782   Verify=488
+ov-Ip-pkc:       KeyGen=175145  Sign=2860   Verify=15715
+ov-Ip-pkc-skc:   KeyGen=155591  Sign=107860 Verify=15862
+ov-III-classic:  KeyGen=1072688 Sign=11465  Verify=1580
+ov-III-pkc:      KeyGen=1086512 Sign=12045  Verify=57558
+ov-III-pkc-skc:  KeyGen=908908  Sign=660058 Verify=66728
+ov-V-classic:    KeyGen=2531701 Sign=21879  Verify=2346
+ov-V-pkc:        KeyGen=2616483 Sign=22394  Verify=140017
+ov-V-pkc-skc:    KeyGen=2766520 Sign=1795885 Verify=134418
+
+=== UOV ARM64 Obliv.LUT+NEON — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=453582  Sign=7598   Verify=2979
+ov-Ip-pkc:       KeyGen=421838  Sign=7718   Verify=52115
+ov-Ip-pkc-skc:   KeyGen=437171  Sign=310644 Verify=56762
+ov-III-classic:  KeyGen=3212539 Sign=35991  Verify=12401
+ov-III-pkc:      KeyGen=2948971 Sign=34513  Verify=250132
+ov-III-pkc-skc:  KeyGen=3318170 Sign=2106786 Verify=258472
+ov-V-classic:    KeyGen=9018958 Sign=74118  Verify=23755
+ov-V-pkc:        KeyGen=8867108 Sign=82948  Verify=533352
+ov-V-pkc-skc:    KeyGen=9246254 Sign=5457027 Verify=511006
+
+=== UOV ARM64 Obliv.LUT+NEON+O3 — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=145382  Sign=2452   Verify=404
+ov-Ip-pkc:       KeyGen=155083  Sign=2721   Verify=15055
+ov-Ip-pkc-skc:   KeyGen=146076  Sign=105166 Verify=15506
+ov-III-classic:  KeyGen=934589  Sign=10166  Verify=1397
+ov-III-pkc:      KeyGen=1071531 Sign=11715  Verify=56980
+ov-III-pkc-skc:  KeyGen=984554  Sign=653068 Verify=67738
+ov-V-classic:    KeyGen=2773354 Sign=22344  Verify=2346
+ov-V-pkc:        KeyGen=2581500 Sign=22215  Verify=141289
+ov-V-pkc-skc:    KeyGen=2514225 Sign=1760095 Verify=165059
+
+=== UOV ARM64 GF256_Full+O3 — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=159832  Sign=2483   Verify=419
+ov-Ip-pkc:       KeyGen=190609  Sign=3180   Verify=18035
+ov-Ip-pkc-skc:   KeyGen=154451  Sign=102558 Verify=15220
+ov-III-classic:  KeyGen=918974  Sign=10260  Verify=1383
+ov-III-pkc:      KeyGen=947038  Sign=10692  Verify=57997
+ov-III-pkc-skc:  KeyGen=936204  Sign=704617 Verify=57311 
+ov-V-classic:    KeyGen=2525795 Sign=22053  Verify=2347
+ov-V-pkc:        KeyGen=2602792 Sign=24065  Verify=132276
+ov-V-pkc-skc:    KeyGen=2774401 Sign=1896156 Verify=140877
+
+=== UOV ARM64 GF256_Full+GE_CT — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=377575  Sign=6431   Verify=2638
+ov-Ip-pkc:       KeyGen=389038  Sign=6515   Verify=46049
+ov-Ip-pkc-skc:   KeyGen=405153  Sign=254300 Verify=47453
+ov-III-classic:  KeyGen=2578651 Sign=27090  Verify=9736
+ov-III-pkc:      KeyGen=2567447 Sign=28186  Verify=207377
+ov-III-pkc-skc:  KeyGen=2571749 Sign=1657796 Verify=203756
+ov-V-classic:    KeyGen=7647024 Sign=61477  Verify=20657
+ov-V-pkc:        KeyGen=7722497 Sign=62503  Verify=458181
+ov-V-pkc-skc:    KeyGen=7703142 Sign=5016069 Verify=464695
+
+=== UOV ARM64 GF256_Full+GE_CT+O3 — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=131678  Sign=2198   Verify=381
+ov-Ip-pkc:       KeyGen=129831  Sign=2197   Verify=12844
+ov-Ip-pkc-skc:   KeyGen=135161  Sign=90680  Verify=12908
+ov-III-classic:  KeyGen=837517  Sign=8530   Verify=1138
+ov-III-pkc:      KeyGen=819698  Sign=8725   Verify=55132
+ov-III-pkc-skc:  KeyGen=809479  Sign=549920 Verify=54588
+ov-V-classic:    KeyGen=2218921 Sign=17902  Verify=1894
+ov-V-pkc:        KeyGen=2232312 Sign=17902  Verify=129094
+ov-V-pkc-skc:    KeyGen=2210301 Sign=1402096 Verify=127822
+
+=== UOV ARM64 GF256_Full+OpenMP — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=383830  Sign=6792   Verify=2614
+ov-Ip-pkc:       KeyGen=383830  Sign=6744   Verify=44739
+ov-Ip-pkc-skc:   KeyGen=379482  Sign=255727 Verify=46102
+ov-III-classic:  KeyGen=2518437 Sign=27788  Verify=9610
+ov-III-pkc:      KeyGen=2515204 Sign=28066  Verify=197261
+ov-III-pkc-skc:  KeyGen=2339069 Sign=1624042 Verify=203313
+ov-V-classic:    KeyGen=7605390 Sign=61682  Verify=20154
+ov-V-pkc:        KeyGen=7623914 Sign=62076  Verify=453443
+ov-V-pkc-skc:    KeyGen=7607249 Sign=4859534 Verify=429659
+
+=== UOV ARM64 GF256_Full+OpenMP+O3 — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=143512  Sign=2300   Verify=374
+ov-Ip-pkc:       KeyGen=138602  Sign=2452   Verify=12942
+ov-Ip-pkc-skc:   KeyGen=141108  Sign=95194  Verify=13386
+ov-III-classic:  KeyGen=849859  Sign=8751   Verify=1058
+ov-III-pkc:      KeyGen=840195  Sign=9331   Verify=57296
+ov-III-pkc-skc:  KeyGen=849583  Sign=555158 Verify=54377
+ov-V-classic:    KeyGen=2262669 Sign=19743  Verify=1894
+ov-V-pkc:        KeyGen=2257644 Sign=19433  Verify=134252
+ov-V-pkc-skc:    KeyGen=2273058 Sign=1432038 Verify=129919
+
+=== UOV ARM64 GF256_LogExp+O3 — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=147138  Sign=2515   Verify=419
+ov-Ip-pkc:       KeyGen=158177  Sign=2872   Verify=15457
+ov-Ip-pkc-skc:   KeyGen=154451  Sign=103340 Verify=15178
+ov-III-classic:  KeyGen=941444  Sign=9950   Verify=1127
+ov-III-pkc:      KeyGen=949570  Sign=10526  Verify=57835
+ov-III-pkc-skc:  KeyGen=1018672 Sign=635219 Verify=57311
+ov-V-classic:    KeyGen=2525795 Sign=20903  Verify=1927
+ov-V-pkc:        KeyGen=2731082 Sign=21536  Verify=131636
+ov-V-pkc-skc:    KeyGen=2643881 Sign=1684871 Verify=131573
+
+=== UOV ARM64 GF256_LogExp+GE_CT — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=423694  Sign=7466   Verify=2613
+ov-Ip-pkc:       KeyGen=444582  Sign=7550   Verify=44642
+ov-Ip-pkc-skc:   KeyGen=536696  Sign=273565 Verify=45453
+ov-III-classic:  KeyGen=3265884 Sign=27090  Verify=10532
+ov-III-pkc:      KeyGen=2963817 Sign=29131  Verify=242394
+ov-III-pkc-skc:  KeyGen=2989169 Sign=1893624 Verify=203756
+ov-V-classic:    KeyGen=9618138 Sign=62352  Verify=20718
+ov-V-pkc:        KeyGen=9085362 Sign=71592  Verify=550029
+ov-V-pkc-skc:    KeyGen=9492686 Sign=5972504 Verify=579733
+
+=== UOV ARM64 GF256_LogExp+GE_CT+O3 — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=157433  Sign=2515   Verify=326
+ov-Ip-pkc:       KeyGen=154661  Sign=2600   Verify=13629
+ov-Ip-pkc-skc:   KeyGen=150403  Sign=96573  Verify=13519
+ov-III-classic:  KeyGen=949155  Sign=8449   Verify=1104
+ov-III-pkc:      KeyGen=961285  Sign=9862   Verify=60238
+ov-III-pkc-skc:  KeyGen=949169  Sign=594726 Verify=53458
+ov-V-classic:    KeyGen=2734966 Sign=18145  Verify=1820
+ov-V-pkc:        KeyGen=2506627 Sign=17902  Verify=137405
+ov-V-pkc-skc:    KeyGen=2599484 Sign=1732938 Verify=127822
+
+=== UOV ARM64 GF256_LogExp+OpenMP — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=443768  Sign=7951   Verify=2613
+ov-Ip-pkc:       KeyGen=494918  Sign=6617   Verify=47774
+ov-Ip-pkc-skc:   KeyGen=444596  Sign=289455 Verify=48198
+ov-III-classic:  KeyGen=3130691 Sign=29367  Verify=9233
+ov-III-pkc:      KeyGen=3003495 Sign=28855  Verify=207404
+ov-III-pkc-skc:  KeyGen=2987350 Sign=1982568 Verify=225535
+ov-V-classic:    KeyGen=9774302 Sign=67098  Verify=21979
+ov-V-pkc:        KeyGen=9127569 Sign=64993  Verify=550029
+ov-V-pkc-skc:    KeyGen=9552619 Sign=6102328 Verify=567633
+
+=== UOV ARM64 GF256_LogExp+OpenMP+O3 — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=140172  Sign=2430   Verify=409
+ov-Ip-pkc:       KeyGen=152053  Sign=2849   Verify=13989
+ov-Ip-pkc-skc:   KeyGen=150142  Sign=107071 Verify=13806
+ov-III-classic:  KeyGen=991953  Sign=8839   Verify=1066
+ov-III-pkc:      KeyGen=962560  Sign=9924   Verify=57664
+ov-III-pkc-skc:  KeyGen=923355  Sign=649473 Verify=60295
+ov-V-classic:    KeyGen=2637130 Sign=19383  Verify=1940
+ov-V-pkc:        KeyGen=2498308 Sign=19919  Verify=134252
+ov-V-pkc-skc:    KeyGen=2791108 Sign=1692810 Verify=146242
+
+=== UOV ARM64 GF256_Obliv_Full+O3 — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=168718  Sign=2819   Verify=494
+ov-Ip-pkc:       KeyGen=146464  Sign=2786   Verify=15430
+ov-Ip-pkc-skc:   KeyGen=157102  Sign=126084 Verify=18297
+ov-III-classic:  KeyGen=1028443 Sign=10828  Verify=1403
+ov-III-pkc:      KeyGen=1036844 Sign=11040  Verify=60426
+ov-III-pkc-skc:  KeyGen=979353  Sign=646681 Verify=57311
+ov-V-classic:    KeyGen=2611989 Sign=22469  Verify=2075
+ov-V-pkc:        KeyGen=2477932 Sign=20745  Verify=139521
+ov-V-pkc-skc:    KeyGen=2579940 Sign=1645869 Verify=131168
+
+=== UOV ARM64 GF256_Obliv_Full+GE_CT — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=432037  Sign=8005   Verify=2536
+ov-Ip-pkc:       KeyGen=432037  Sign=6561   Verify=47239
+ov-Ip-pkc-skc:   KeyGen=440759  Sign=287718 Verify=48005
+ov-III-classic:  KeyGen=3155447 Sign=22192  Verify=7792
+ov-III-pkc:      KeyGen=2746670 Sign=29108  Verify=235190
+ov-III-pkc-skc:  KeyGen=3225209 Sign=1675401 Verify=211883
+ov-V-classic:    KeyGen=9670995 Sign=65870  Verify=22726
+ov-V-pkc:        KeyGen=8941883 Sign=66905  Verify=550017
+ov-V-pkc-skc:    KeyGen=9867743 Sign=5624500 Verify=549090 
+
+=== UOV ARM64 GF256_Obliv_Full+GE_CT+O3 — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=157520  Sign=2586   Verify=457
+ov-Ip-pkc:       KeyGen=155027  Sign=2173   Verify=12945
+ov-Ip-pkc-skc:   KeyGen=165660  Sign=93944  Verify=13153
+ov-III-classic:  KeyGen=938389  Sign=8636   Verify=1161
+ov-III-pkc:      KeyGen=967626  Sign=9785   Verify=61400
+ov-III-pkc-skc:  KeyGen=1000870 Sign=641704 Verify=56440
+ov-V-classic:    KeyGen=2873494 Sign=19860  Verify=1894
+ov-V-pkc:        KeyGen=2408571 Sign=18565  Verify=139328
+ov-V-pkc-skc:    KeyGen=2556955 Sign=1645262 Verify=148247
+
+=== UOV ARM64 GF256_Obliv_Full+OpenMP — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=436290  Sign=7860   Verify=3121
+ov-Ip-pkc:       KeyGen=431514  Sign=7301   Verify=47683
+ov-Ip-pkc-skc:   KeyGen=469331  Sign=284501 Verify=48274
+ov-III-classic:  KeyGen=3158616 Sign=33403  Verify=9673
+ov-III-pkc:      KeyGen=3036077 Sign=30300  Verify=229048
+ov-III-pkc-skc:  KeyGen=3199835 Sign=2001530 Verify=217058
+ov-V-classic:    KeyGen=9955569 Sign=65356  Verify=21829
+ov-V-pkc:        KeyGen=9820642 Sign=70754  Verify=547297
+ov-V-pkc-skc:    KeyGen=9817951 Sign=5947436 Verify=561558
+
+=== UOV ARM64 GF256_Obliv_Full+OpenMP+O3 — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=163138  Sign=2906   Verify=497
+ov-Ip-pkc:       KeyGen=151220  Sign=2816   Verify=14453
+ov-Ip-pkc-skc:   KeyGen=162298  Sign=103425 Verify=13818
+ov-III-classic:  KeyGen=1006573 Sign=9702   Verify=1130
+ov-III-pkc:      KeyGen=1042362 Sign=9491   Verify=59708
+ov-III-pkc-skc:  KeyGen=958256  Sign=614882 Verify=63116
+ov-V-classic:    KeyGen=2611385 Sign=20690  Verify=2023
+ov-V-pkc:        KeyGen=2702413 Sign=21775  Verify=149542
+ov-V-pkc-skc:    KeyGen=2624505 Sign=1741852 Verify=151998
+
+=== UOV ARM64 GF256_Obliv_LogExp+O3 — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=115843  Sign=2085   Verify=11434 (anomaly - run2 pkc)
+ov-Ip-pkc:       KeyGen=147016  Sign=2085   Verify=10489
+ov-Ip-pkc-skc:   KeyGen=115843  Sign=90718  Verify=11465 (anomaly)
+ov-III-classic:  KeyGen=977676  Sign=9346   Verify=1137
+ov-III-pkc:      KeyGen=942416  Sign=6972   Verify=46872
+ov-III-pkc-skc:  KeyGen=922804  Sign=629332 Verify=62701
+ov-V-classic:    KeyGen=2718693 Sign=22138  Verify=2155
+ov-V-pkc:        KeyGen=2559102 Sign=19313  Verify=130943
+ov-V-pkc-skc:    KeyGen=2559102 Sign=1572285 Verify=135475
+
+=== UOV ARM64 GF256_Obliv_LogExp+GE_CT — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=443014  Sign=7618   Verify=3088
+ov-Ip-pkc:       KeyGen=502102  Sign=6723   Verify=47637
+ov-Ip-pkc-skc:   KeyGen=544796  Sign=289002 Verify=54911
+ov-III-classic:  KeyGen=3265478 Sign=27386  Verify=10023
+ov-III-pkc:      KeyGen=3105798 Sign=28196  Verify=240699
+ov-III-pkc-skc:  KeyGen=2962055 Sign=2015149 Verify=223346
+ov-V-classic:    KeyGen=10783623 Sign=75148 Verify=24727
+ov-V-pkc:        KeyGen=9651377 Sign=67491  Verify=553892
+ov-V-pkc-skc:    KeyGen=9404023 Sign=5617907 Verify=549090
+
+=== UOV ARM64 GF256_Obliv_LogExp+GE_CT+O3 — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=157530  Sign=2445   Verify=324
+ov-Ip-pkc:       KeyGen=152430  Sign=2838   Verify=13538
+ov-Ip-pkc-skc:   KeyGen=155259  Sign=101540 Verify=12487
+ov-III-classic:  KeyGen=1031794 Sign=8489   Verify=1171
+ov-III-pkc:      KeyGen=993459  Sign=8884   Verify=60157
+ov-III-pkc-skc:  KeyGen=1034134 Sign=646744 Verify=57989
+ov-V-classic:    KeyGen=2694626 Sign=19341  Verify=1991
+ov-V-pkc:        KeyGen=2887360 Sign=18531  Verify=136986
+ov-V-pkc-skc:    KeyGen=2903905 Sign=1589810 Verify=131853
+
+=== UOV ARM64 GF256_Obliv_LogExp+OpenMP — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=479977  Sign=7756   Verify=3113
+ov-Ip-pkc:       KeyGen=447530  Sign=8071   Verify=55591
+ov-Ip-pkc-skc:   KeyGen=534109  Sign=304518 Verify=51673
+ov-III-classic:  KeyGen=2722493 Sign=30320  Verify=9293
+ov-III-pkc:      KeyGen=2989837 Sign=29956  Verify=218559
+ov-III-pkc-skc:  KeyGen=3095457 Sign=1940282 Verify=242169
+ov-V-classic:    KeyGen=9234221 Sign=51693  Verify=17961
+ov-V-pkc:        KeyGen=9940802 Sign=65221  Verify=580469
+ov-V-pkc-skc:    KeyGen=9884340 Sign=5685491 Verify=553522
+
+=== UOV ARM64 GF256_Obliv_LogExp+OpenMP+O3 — Best of 3 runs (microseconds) ===
+ov-Ip-classic:   KeyGen=156809  Sign=2596   Verify=443
+ov-Ip-pkc:       KeyGen=158506  Sign=2274   Verify=13199
+ov-Ip-pkc-skc:   KeyGen=152495  Sign=87772  Verify=12941
+ov-III-classic:  KeyGen=987692  Sign=8959   Verify=1115
+ov-III-pkc:      KeyGen=1041761 Sign=8807   Verify=57788
+ov-III-pkc-skc:  KeyGen=1046285 Sign=661212 Verify=58297 (run2)
+ov-V-classic:    KeyGen=2886322 Sign=21063  Verify=2185
+ov-V-pkc:        KeyGen=2674618 Sign=19483  Verify=140533
+ov-V-pkc-skc:    KeyGen=2940437 Sign=1741424 Verify=136156
+
+=== GROUP 5: Combined GF16+GF256 Optimizations (Best of 3 runs, μs) ===
+Config: GE_CT+O3 (best performance configuration)
+
+--- GF16_LUT+GF256_Full ---
+KeyGen: Ip=153K Ip-pkc=166K Ip-skc=158K III=1004K III-pkc=954K III-skc=1025K V=2830K V-pkc=2784K V-skc=2883K
+Sign:   Ip=2551 Ip-pkc=2842 Ip-skc=121K III=10576 III-pkc=10663 III-skc=808K V=23270 V-pkc=24903 V-skc=1912K
+Verify: Ip=437  Ip-pkc=15452 Ip-skc=17836 III=1522 III-pkc=74746 III-skc=82384 V=2736 V-pkc=149535 V-skc=178096
+
+--- GF16_LUT+GF256_LogExp ---
+KeyGen: Ip=146K Ip-pkc=161K Ip-skc=163K III=999K III-pkc=967K III-skc=964K V=2667K V-pkc=2623K V-skc=2784K
+Sign:   Ip=2574 Ip-pkc=3294 Ip-skc=119K III=9371 III-pkc=11545 III-skc=696K V=21590 V-pkc=21535 V-skc=1839K
+Verify: Ip=449  Ip-pkc=19994 Ip-skc=17506 III=1338 III-pkc=78177 III-skc=75064 V=2490 V-pkc=159324 V-skc=168607
+
+--- GF16_LUT+GF256_Obliv_Full ---
+KeyGen: Ip=153K Ip-pkc=153K Ip-skc=133K III=836K III-pkc=842K III-skc=812K V=2267K V-pkc=2265K V-skc=2267K
+Sign:   Ip=2181 Ip-pkc=2247 Ip-skc=91374 III=8737 III-pkc=8845 III-skc=570K V=18293 V-pkc=18880 V-skc=1466K
+Verify: Ip=373  Ip-pkc=12610 Ip-skc=13044 III=1169 III-pkc=57701 III-skc=54548 V=2003 V-pkc=131379 V-skc=137178
+
+--- GF16_LUT+GF256_Obliv_LogExp ---
+KeyGen: Ip=151K Ip-pkc=161K Ip-skc=163K III=1040K III-pkc=987K III-skc=937K V=2644K V-pkc=2745K V-skc=2644K
+Sign:   Ip=2629 Ip-pkc=3114 Ip-skc=113K III=10971 III-pkc=11470 III-skc=715K V=20865 V-pkc=24219 V-skc=1857K
+Verify: Ip=474  Ip-pkc=17956 Ip-skc=16545 III=1581 III-pkc=79468 III-skc=78352 V=2377 V-pkc=185065 V-skc=175732
+
+--- GF16_Obliv+GF256_Obliv_Full ---
+KeyGen: Ip=132K Ip-pkc=133K Ip-skc=133K III=826K III-pkc=821K III-skc=812K V=2267K V-pkc=2265K V-skc=2267K
+Sign:   Ip=2181 Ip-pkc=2247 Ip-skc=91374 III=8737 III-pkc=8845 III-skc=570K V=18293 V-pkc=18880 V-skc=1466K
+Verify: Ip=373  Ip-pkc=12610 Ip-skc=13044 III=1169 III-pkc=57701 III-skc=54548 V=2003 V-pkc=131379 V-skc=137178
+
+--- GF16_Obliv+GF256_Obliv_LogExp (BEST COMBINED) ---
+KeyGen: Ip=137K Ip-pkc=137K Ip-skc=135K III=855K III-pkc=855K III-skc=855K V=2312K V-pkc=2273K V-skc=2294K
+Sign:   Ip=2245 Ip-pkc=2290 Ip-skc=97543 III=8804 III-pkc=8934 III-skc=583K V=18293 V-pkc=18944 V-skc=1466K
+Verify: Ip=324  Ip-pkc=13411 Ip-skc=13376 III=1173 III-pkc=58004 III-skc=57389 V=1915 V-pkc=130043 V-skc=130650
+
+=== ALL CONFIGS — GF16_Obliv+GF256_Obliv_LogExp (Best of 3 runs, μs) ===
+
+Config: Ref
+KeyGen: Ip=423K Ip-pkc=393K Ip-skc=401K III=2721K III-pkc=2712K III-skc=2713K V=7979K V-pkc=7884K V-skc=7763K
+Sign:   Ip=6833 Ip-pkc=6997 Ip-skc=279K III=29049 III-pkc=30017 III-skc=1858K V=65564 V-pkc=65484 V-skc=5269K
+Verify: Ip=2720 Ip-pkc=48364 Ip-skc=50865 III=10116 III-pkc=212558 III-skc=235883 V=21427 V-pkc=496769 V-skc=522120
+
+Config: O3
+KeyGen: Ip=138K Ip-pkc=138K Ip-skc=135K III=877K III-pkc=878K III-skc=879K V=2340K V-pkc=2374K V-skc=2367K
+Sign:   Ip=2261 Ip-pkc=2557 Ip-skc=97543 III=9177 III-pkc=9940 III-skc=656K V=19775 V-pkc=20574 V-skc=1551K
+Verify: Ip=365  Ip-pkc=14020 Ip-skc=14082 III=1173 III-pkc=59993 III-skc=61479 V=2025 V-pkc=133870 V-skc=142755
+
+Config: GE_CT
+KeyGen: Ip=382K Ip-pkc=388K Ip-skc=382K III=2635K III-pkc=2635K III-skc=2635K V=7872K V-pkc=7872K V-skc=8012K
+Sign:   Ip=6516 Ip-pkc=6675 Ip-skc=257K III=27292 III-pkc=27666 III-skc=1726K V=61550 V-pkc=61143 V-skc=5092K
+Verify: Ip=2670 Ip-pkc=46876 Ip-skc=47025 III=9993 III-pkc=207710 III-skc=207586 V=22038 V-pkc=475258 V-skc=490753
+
+Config: GE_CT+O3
+KeyGen: Ip=137K Ip-pkc=137K Ip-skc=139K III=855K III-pkc=855K III-skc=855K V=2312K V-pkc=2273K V-skc=2294K
+Sign:   Ip=2245 Ip-pkc=2290 Ip-skc=97543 III=8804 III-pkc=8934 III-skc=583K V=18293 V-pkc=18944 V-skc=1466K
+Verify: Ip=324  Ip-pkc=13411 Ip-skc=13376 III=1173 III-pkc=58004 III-skc=57389 V=1915 V-pkc=130043 V-skc=130650
+
+Config: OpenMP
+KeyGen: Ip=388K Ip-pkc=389K Ip-skc=388K III=2563K III-pkc=2563K III-skc=2563K V=7875K V-pkc=7769K V-skc=7875K
+Sign:   Ip=6891 Ip-pkc=6891 Ip-skc=248K III=29875 III-pkc=28327 III-skc=1703K V=60068 V-pkc=62210 V-skc=5228K
+Verify: Ip=2569 Ip-pkc=44852 Ip-skc=38649 III=9465 III-pkc=194214 III-skc=207624 V=20279 V-pkc=485125 V-skc=502529
+
+Config: OpenMP+O3
+KeyGen: Ip=135K Ip-pkc=136K Ip-skc=136K III=887K III-pkc=885K III-skc=879K V=2333K V-pkc=2337K V-skc=2282K
+Sign:   Ip=2592 Ip-pkc=2435 Ip-skc=98985 III=9194 III-pkc=9817 III-skc=592K V=20028 V-pkc=19800 V-skc=1495K
+Verify: Ip=423  Ip-pkc=13554 Ip-skc=14796 III=1184 III-pkc=62779 III-skc=61393 V=2029 V-pkc=138919 V-skc=138594
+
+=== GROUP 5 MEMORY: GF16_Obliv+GF256_Obliv_LogExp + GE_CT+O3 (RSS kB) ===
+Ip-classic=9984  Ip-pkc=21416  Ip-pkc-skc=23384
+III-classic=22640  III-pkc=23020  III-pkc-skc=25112
+V-classic=25692  V-pkc=26072  V-pkc-skc=27968
