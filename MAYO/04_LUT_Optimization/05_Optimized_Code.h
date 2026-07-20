@@ -43,7 +43,7 @@ static inline unsigned char mul_f(unsigned char a, unsigned char b) {
     return gf16_mul_lut[a & 0xf][b & 0xf];
 }
 
-// المعكوس الضربي في GF(16) باستخدام LUT
+//  GF(16)  LUT
 static inline unsigned char inverse_f(unsigned char a) {
     return gf16_inv_lut[a & 0xf];
 }
