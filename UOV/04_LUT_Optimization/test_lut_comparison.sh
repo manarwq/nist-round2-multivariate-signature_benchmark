@@ -56,7 +56,7 @@ for i in "${!PARAMS[@]}"; do
     echo ""
     
     make clean > /dev/null 2>&1
-    make PROJ=$PARAM CFLAGS="-DUSE_GF16_LUT" > /dev/null 2>&1
+  make PROJ=$PARAM EXTRA_CFLAGS="-DUSE_GF16_LUT" > /dev/null 2>&1
     
     if [ ! -f sign_api-test ]; then
         echo "❌ Build failed"
