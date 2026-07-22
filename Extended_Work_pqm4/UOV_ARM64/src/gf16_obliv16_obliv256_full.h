@@ -368,6 +368,7 @@ static inline uint8_t gf256_mul(uint8_t a, uint8_t b) {
     unsigned char result = 0;
     for (int i = 0; i < 256; i++) {
         unsigned char mask = (unsigned char)(-(int8_t)(((a ^ (unsigned char)i) - 1) >> 7));
+        // unsigned char mask = gf16_ct_eq_mask(a, (unsigned char)i);
         result |= mask & gf256_mul_lut[i][b];
     }
     return result;
