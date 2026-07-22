@@ -51,12 +51,20 @@ static const uint8_t gf16_mul_lut[16][16] = {
 };
 
 // Oblivious LUT - cache-timing attack resistant
+// Constant-time equality mask: 0xFF if a==b, 0x00 otherwise (correct for full 0-255 range)
+static inline uint8_t gf16_ct_eq_mask(uint8_t a, uint8_t b) {
+    uint8_t diff = a ^ b;
+    unsigned r = ((unsigned) 0) - (unsigned)diff;
+    r >>= 8;
+    unsigned is_nz = r & 1;
+    return (uint8_t)(is_nz - 1);
+}
 static inline uint8_t gf16_mul(uint8_t a, uint8_t b) {
     unsigned char result = 0;
     unsigned char a4 = a & 0x0f;
     unsigned char b4 = b & 0x0f;
     for (int i = 0; i < 16; i++) {
-        unsigned char mask = (unsigned char)(-(int8_t)(((a4 ^ (unsigned char)i) - 1) >> 7));
+        unsigned char mask = gf16_ct_eq_mask(a4, (unsigned char)i);
         result |= mask & gf16_mul_lut[i][b4];
     }
     return result;
@@ -100,13 +108,36 @@ static inline uint8_t gf256_is_nonzero(uint8_t a) {
 static const uint8_t gf256_log_table[256] = {0,0,25,1,50,2,26,198,75,199,27,104,51,238,223,3,100,4,224,14,52,141,129,239,76,113,8,200,248,105,28,193,125,194,29,181,249,185,39,106,77,228,166,114,154,201,9,120,101,47,138,5,33,15,225,36,18,240,130,69,53,147,218,142,150,143,219,189,54,208,206,148,19,92,210,241,64,70,131,56,102,221,253,48,191,6,139,98,179,37,226,152,34,136,145,16,126,110,72,195,163,182,30,66,58,107,40,84,250,133,61,186,43,121,10,21,155,159,94,202,78,212,172,229,243,115,167,87,175,88,168,80,244,234,214,116,79,174,233,213,231,230,173,232,44,215,117,122,235,22,11,245,89,203,95,176,156,169,81,160,127,12,246,111,23,196,73,236,216,67,31,45,164,118,123,183,204,187,62,90,251,96,177,134,59,82,161,108,170,85,41,157,151,178,135,144,97,190,220,252,188,149,207,205,55,63,91,209,83,57,132,60,65,162,109,71,20,42,158,93,86,242,211,171,68,17,146,217,35,32,46,137,180,124,184,38,119,153,227,165,103,74,237,222,197,49,254,24,13,99,140,128,192,247,112,7};
 static const uint8_t gf256_exp_table[512] = {1,3,5,15,17,51,85,255,26,46,114,150,161,248,19,53,95,225,56,72,216,115,149,164,247,2,6,10,30,34,102,170,229,52,92,228,55,89,235,38,106,190,217,112,144,171,230,49,83,245,4,12,20,60,68,204,79,209,104,184,211,110,178,205,76,212,103,169,224,59,77,215,98,166,241,8,24,40,120,136,131,158,185,208,107,189,220,127,129,152,179,206,73,219,118,154,181,196,87,249,16,48,80,240,11,29,39,105,187,214,97,163,254,25,43,125,135,146,173,236,47,113,147,174,233,32,96,160,251,22,58,78,210,109,183,194,93,231,50,86,250,21,63,65,195,94,226,61,71,201,64,192,91,237,44,116,156,191,218,117,159,186,213,100,172,239,42,126,130,157,188,223,122,142,137,128,155,182,193,88,232,35,101,175,234,37,111,177,200,67,197,84,252,31,33,99,165,244,7,9,27,45,119,153,176,203,70,202,69,207,74,222,121,139,134,145,168,227,62,66,198,81,243,14,18,54,90,238,41,123,141,140,143,138,133,148,167,242,13,23,57,75,221,124,132,151,162,253,28,36,108,180,199,82,246,1,3,5,15,17,51,85,255,26,46,114,150,161,248,19,53,95,225,56,72,216,115,149,164,247,2,6,10,30,34,102,170,229,52,92,228,55,89,235,38,106,190,217,112,144,171,230,49,83,245,4,12,20,60,68,204,79,209,104,184,211,110,178,205,76,212,103,169,224,59,77,215,98,166,241,8,24,40,120,136,131,158,185,208,107,189,220,127,129,152,179,206,73,219,118,154,181,196,87,249,16,48,80,240,11,29,39,105,187,214,97,163,254,25,43,125,135,146,173,236,47,113,147,174,233,32,96,160,251,22,58,78,210,109,183,194,93,231,50,86,250,21,63,65,195,94,226,61,71,201,64,192,91,237,44,116,156,191,218,117,159,186,213,100,172,239,42,126,130,157,188,223,122,142,137,128,155,182,193,88,232,35,101,175,234,37,111,177,200,67,197,84,252,31,33,99,165,244,7,9,27,45,119,153,176,203,70,202,69,207,74,222,121,139,134,145,168,227,62,66,198,81,243,14,18,54,90,238,41,123,141,140,143,138,133,148,167,242,13,23,57,75,221,124,132,151,162,253,28,36,108,180,199,82,246,0,0};
 
+// Oblivious table scan for the log table (256 entries) — no secret-dependent memory access
+static inline unsigned int gf256_is_nonzero_wide(unsigned int x) {
+    x |= x >> 16; x |= x >> 8; x |= x >> 4; x |= x >> 2; x |= x >> 1;
+    return x & 1;
+}
+static inline uint8_t gf256_obliv_lookup256(const uint8_t *table, uint8_t idx) {
+    unsigned int result = 0;
+    for (int i = 0; i < 256; i++) {
+        unsigned int mask = gf256_is_nonzero_wide((unsigned int)((uint8_t)i ^ idx)) - 1u;
+        result |= mask & table[i];
+    }
+    return (uint8_t)result;
+}
+// Oblivious table scan for the exp table (512 entries)
+static inline uint8_t gf256_obliv_lookup512(const uint8_t *table, unsigned int idx) {
+    unsigned int result = 0;
+    for (int i = 0; i < 512; i++) {
+        unsigned int mask = gf256_is_nonzero_wide(((unsigned int)i) ^ idx) - 1u;
+        result |= mask & table[i];
+    }
+    return (uint8_t)result;
+}
 static inline uint8_t gf256_mul(uint8_t a, uint8_t b) {
-    if (!a || !b) return 0;
-    unsigned int log_sum = (unsigned int)gf256_log_table[a] + (unsigned int)gf256_log_table[b];
-    // Oblivious mod 255
-    unsigned int over = log_sum >= 255 ? 1 : 0;
-    log_sum -= over * 255;
-    return gf256_exp_table[log_sum];
+    uint8_t la = gf256_obliv_lookup256(gf256_log_table, a);
+    uint8_t lb = gf256_obliv_lookup256(gf256_log_table, b);
+    unsigned int log_sum = (unsigned int)la + (unsigned int)lb;
+    uint8_t r = gf256_obliv_lookup512(gf256_exp_table, log_sum);
+    // branchless zero handling (avoids leaking whether a or b was zero)
+    unsigned int keep = gf256_is_nonzero_wide((unsigned int)a) & gf256_is_nonzero_wide((unsigned int)b);
+    return (uint8_t)(r & (0u - keep));
 }
 
 

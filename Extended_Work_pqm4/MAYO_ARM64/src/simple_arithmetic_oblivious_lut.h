@@ -24,12 +24,20 @@ static const unsigned char gf16_mul_lut[16][16] = {
 };
 
 // Oblivious LUT - constant-time, cache-attack resistant
+// Constant-time equality mask: 0xFF if a==b, 0x00 otherwise (correct for full 0-255 range)
+static inline unsigned char gf16_ct_eq_mask(unsigned char a, unsigned char b) {
+    unsigned char diff = a ^ b;
+    unsigned r = ((unsigned) 0) - (unsigned)diff;
+    r >>= 8;
+    unsigned is_nz = r & 1;
+    return (unsigned char)(is_nz - 1);
+}
 static inline unsigned char mul_f(unsigned char a, unsigned char b) {
     unsigned char result = 0;
     unsigned char a4 = a & 0x0f;
     unsigned char b4 = b & 0x0f;
     for (int i = 0; i < 16; i++) {
-        unsigned char mask = (unsigned char)(-(int8_t)(((a4 ^ (unsigned char)i) - 1) >> 7));
+        unsigned char mask = gf16_ct_eq_mask(a4, (unsigned char)i);
         result |= mask & gf16_mul_lut[i][b4];
     }
     return result;
