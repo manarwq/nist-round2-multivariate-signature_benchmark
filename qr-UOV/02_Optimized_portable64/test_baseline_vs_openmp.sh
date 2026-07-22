@@ -8,7 +8,7 @@ echo ""
 RESULTS_FILE="baseline_vs_openmp.csv"
 rm -f $RESULTS_FILE
 
-# حفظ Makefile الأصلي
+# Original Makefile 
 cp Makefile Makefile.backup
 
 # ==========================================
@@ -52,7 +52,7 @@ echo "PART 2: Testing WITH OpenMP"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 
-# استعادة Makefile الأصلي (مع -fopenmp)
+#  Makefile + ( -fopenmp)
 cp Makefile.backup Makefile
 
 for LEVEL in 1 3 5; do
@@ -116,7 +116,7 @@ echo ""
 echo "✅ Testing complete!"
 echo "Results: baseline_vs_openmp.csv"
 
-# استعادة Makefile
+
 cp Makefile.backup Makefile
 rm Makefile.backup
 

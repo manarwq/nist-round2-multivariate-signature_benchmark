@@ -5,14 +5,14 @@ echo "qr-UOV Profiling with Callgrind"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 
-# التحقق من valgrind
+# verify valgrind
 if ! command -v valgrind &> /dev/null; then
     echo "❌ valgrind not installed!"
     echo "Install: sudo apt install valgrind"
     exit 1
 fi
 
-# استعادة Makefile الأصلي
+# Original Makefile 
 cp Makefile.backup Makefile 2>/dev/null || cp Makefile Makefile.backup
 
 for LEVEL in 1 3 5; do
